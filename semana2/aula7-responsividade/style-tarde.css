@@ -1,3 +1,8 @@
+div {
+
+    text-align: center;
+    
+}
 .container {
 
     max-width: 100vw;
@@ -15,7 +20,6 @@
     margin-bottom: 1vh;
     justify-content: center;
     
-
 }
 .containerAzul {
 
@@ -27,8 +31,7 @@
 
     display: flex;
     flex-direction: column;
-    
-    
+      
    
 }
 .containerVerde {
@@ -37,7 +40,6 @@
     flex-direction: column;
     
 }
-
 #bloco1 {
 
     border: 1px solid black;
@@ -45,6 +47,7 @@
     width: 30vw;
     margin-bottom: 2vh;
     margin-right: 3vw;
+    
 
 }
 #bloco2 {
@@ -58,8 +61,7 @@
 
     border: 1px solid black;
     height: 10vh;
-    width: 30vw;
-    
+    width: 30vw;   
     
 }
 .azul {
@@ -67,7 +69,7 @@
 
 }    
 .vermelho {
-        background-color: red;
+        background-color:red;
         width: 100vw;
         height: 10vh;
         color: red;
@@ -92,6 +94,7 @@
     justify-content: center;
     
     
+    
 }
 .container-branco {
 
@@ -108,19 +111,18 @@
     background-color: black;
     color: white;
     
-   
 }
 #bloco4 {
 
     height: 30vh;
-    width: 48vw;
-    margin-right: 2vw;
+    width: 46vw;
+    margin-right:2vw ;
+    
 }
-
 #bloco5 {
     height: 30vh;
-    width: 48vw;
-    margin-left: 2w;
+    width: 46vw;
+    margin-left: 2vw;
 
 }
 .branco {
@@ -128,4 +130,59 @@
     border: 1px solid black;
     height: 10vh;
     width: 20vw;
+}
+
+@media screen and (min-device-width :375px) and (max-device-width: 767px) {
+
+    .container {
+
+        max-width: 100vw;
+        max-height:100vh ;
+        display: grid;
+        grid-template-columns: 1fr 1fr ;
+        grid-template-rows: 1fr 1fr 1fr 1fr 1fr 3fr 1fr;
+    
+    }
+    /*.container-azul-amarelo-verde {
+
+        grid-column-start:1 ;
+        grid-column-end: 3;
+        grid-row-start: 2;
+        grid-row-end: 5;
+        
+    }*/
+    .containerAzul {
+
+        grid-column-start:1 ;
+        grid-column-end: 2;
+        grid-row-start: 2;
+        grid-row-end: span 1;
+        
+    }
+    .containerVerde {
+
+        grid-column-start:1 ;
+        grid-column-end: 3;
+    }
+    .containerAmarelo {
+
+        grid-column-start:1 ;
+        grid-column-end: 2;  
+
+    }
+    .container-branco {
+
+        grid-column-start:1 ;
+        grid-column-end: 2;
+        grid-row-start: 7;
+        grid-row-end: 8;
+    }
+    .container-preto {
+
+        grid-column-start:1 ;
+        grid-column-end: 2;
+        grid-row-start: 5;
+        grid-row-end: 7;
+
+    }
 }
