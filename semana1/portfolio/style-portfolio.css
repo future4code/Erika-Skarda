@@ -1,0 +1,55 @@
+body {
+
+    background:url(background.jpeg);
+    background-size: 33%
+}
+
+div h1, h2 {
+
+    color: azure;
+    text-align: center;
+}
+
+nav {
+
+    text-align: center;
+}
+
+nav li {
+
+    display:inline-block;
+    margin:0 auto;
+
+}
+
+.ul {
+
+    text-align: center;
+}
+
+img {
+
+    width:30px;
+    padding:2px;
+}
+
+/*#formulario {
+
+    display: inline-block;
+    margin:0 auto;
+    padding: 20px 10px;
+	box-sizing: border-box;
+	border: 2px solid #000000;
+    border-radius: 10px;
+    
+}*/
+
+.input-padrao {
+
+	display: block;
+	margin: 0 0 15px;
+	padding: 10px 10px;
+    width: 33%;
+    border-style: inset;
+}
+
