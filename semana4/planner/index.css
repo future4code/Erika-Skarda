@@ -1,0 +1,30 @@
+*{
+    box-sizing: border-box;
+   
+}
+body {
+
+    max-width: 100vw;
+    max-height: 100vh;
+    margin: 0 0;
+    padding: 0 0;
+}
+section {
+
+    display: flex;
+    justify-content: space-evenly;
+    
+}
+table {
+
+    width:100%;
+    height: 100vh;
+}
+td, th {
+ 
+    font-weight: bold;
+    background-color: mediumslateblue;
+    height: 100%;
+    border-right: mediumslateblue;
+
+}
