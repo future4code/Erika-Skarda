@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <script src="index-planner.js" defer></script>
+    <link href="index.css" type="text/css" rel="stylesheet" />
+    <title>Document</title>
+  </head>
+  <body>
+    <header>
+      <form id="adiciona">
+
+        <label for="tarefa">Nova tarefa</label>
+        <input id = "input-digitar" type="text" placeholder="tarefa">
+  
+        <fieldset>
+          <legend>Qual dia você deseja selecionar?</legend>
+          <select id="selecao">
+              <option>Segunda-feira</option>
+              <option>Terça-feira</option>
+              <option>Quarta-feira</option>
+              <option>Quinta-feira</option>
+              <option>Sexta-feira</option>
+              <option>Sábado</option>
+              <option>Domingo</option>
+          </select>
+          <button type="button" onclick="inserirTarefa()" >Adicionar tarefa</button>
+
+      </form>
+
+    </header>
+    <main>
+      <h2>Minha semana</h2>
+      <section class="container">
+
+        <table>
+          
+          <thead>
+            <tr>
+              <th>Segunda-feira
+                <ul id="1"></ul>
+              </th>
+              <th>Terça-feira
+                <ul id="2" ></ul>
+              </th>
+              <th>Quarta-feira
+                <ul id="3"></ul>
+              </th>
+              <th>Quinta-feira
+                <ul id="4"></ul>
+              </th>
+              <th>Sexta-feira
+                <ul id="5"></ul>
+              </th>
+              <th>Sábado
+                <ul id="6"></ul>
+              </th>
+              <th>Domingo
+                <ul id="7"></ul>
+              </th>
+            </tr>
+          </thead>
+        </table>
+      </section> 
+    </main>
+
+  
+
+  </body>
+</html>
