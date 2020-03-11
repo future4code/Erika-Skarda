@@ -1,4 +1,4 @@
-//EXERCÌCIO 2
+//EXERCÌCIO 3
 
 class post {
 
@@ -16,10 +16,8 @@ function onClickButton () {
     let conteudoNovo = document.getElementById("inputConteudo").value;
 
     let novoPost = new post(tituloNovo, autorNovo, conteudoNovo);
+    console.log(novoPost);
 
-    console.log(novoPost)
-        
-    tituloNovo.value = "";
-    autorNovo.value = "";
-    conteudoNovo.value ="";
+    let arrayPost = [tituloNovo, autorNovo, conteudoNovo];
+    console.log(arrayPost);
 }
