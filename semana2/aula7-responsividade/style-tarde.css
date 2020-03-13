@@ -1,0 +1,130 @@
+body {
+    margin: 0;
+    padding: 0;
+    width: 100vw;
+    height: 100vh
+}
+div {
+
+    display:flex;
+    justify-content: center;
+    align-items: center;
+     
+}
+.container {
+
+    height: 100%;
+    width: 100%;
+    flex-flow: column nowrap;
+    justify-content: flex-start;
+
+}
+.container-azul-amarelo-verde {
+
+    width:100%;
+    flex-grow: 1;
+    padding: 5px;
+    justify-content: space-around;
+    
+}
+.container-azul-amarelo-verde>div:first-child {
+
+    flex-grow: 2;
+    margin: 0px;
+    height: 100%;
+    border: none;
+}
+.container-azul-amarelo-verde div {
+
+    flex-grow: 1;
+    margin: 5px;
+    height: 100%;
+    border: 1px solid black;
+}
+.container-preto {
+
+    width: 100%;
+    justify-content: space-around;
+    flex-grow: 5;
+    padding: 10px;
+}
+.preto:first-child {
+    margin-right: 15px;
+}
+
+.preto:last-child {
+    margin-left: 15px;
+}
+.preto {
+
+    flex-grow: 1;
+    height: 100%;
+    margin: 5px;
+    background-color: black;
+    color: white;
+}
+#vermelho {
+
+    width: 100%;
+    background: red;
+    flex-grow: 1;
+}
+.azul {
+    background-color: blue;
+}
+
+.amarelo {
+    background-color: yellow;
+}
+
+.verde {
+    background-color: green;
+}
+    
+
+@media screen and (max-width: 800px) {
+
+    .container-azul-amarelo-verde {
+
+        flex-direction: column;
+        align-items: stretch;
+        padding: 0px 5px;
+    
+    }
+    .container-azul-amarelo-verde div {
+
+        flex-grow: 1;
+        margin:10px;
+        height: 100%;
+        border: 1px solid black;
+    }
+    #vermelho {
+
+        margin-bottom: 10px;
+    }
+   .preto:first-child {
+
+        margin-right: 8px;
+       
+    }
+    .preto:last-child {
+
+        margin-left: 8px;
+    }
+}
+@media screen and (max-width: 400px) {
+
+    .container-azul-amarelo-verde>div:first-child {
+        flex-direction: column;
+        align-items: stretch;
+    }
+    .container-azul-amarelo-verde>div:last-child {
+        height: 33%;
+    }
+    .container-preto {
+        width: 100%;
+        justify-content: space-around;
+        flex-grow: 2;
+        padding: 10px;
+    }
+}
