@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <script src="index-funcoes-array.js" defer></script>
+    <link href="index.css" type="text/css" rel="stylesheet" />
+    <title>Document</title>
+  </head>
+  <body>
+
+   <span>
+     <form action="#">
+       <h1> Controlador de despesas</h1>
+       <h2>Cadastrar despesa</h2>
+
+       <label for = "inputValor" required="">Valor</label>
+       <input type = "number" id = "inputValor">
+
+       <legend>Tipo (Casa, Viagem, Alimentação, Outros)</legend>
+       <select id="inputTipo">
+
+           <option value="despesaCasa">Despesas com Casa</option>
+           <option value="despesaViagem">Despesas com Viagem</option>
+           <option value="despesaAlimentacao">Despesas com Alimentação</option>
+
+       </select>
+
+       <label for = "inputDescricao" required="">Descrição</label>
+       <input type = "text" id = "inputDescricao">
+
+       <button type="submit" onclick="onClickButton()">Cadastrar Despesa</button>
+
+     </form>
+    </span>
+     
+    <span>
+      <h1>Despesas Detalhadas</h1>
+
+      <legend>Tipo (Casa, Viagem, Alimentação, Outros)</legend>
+      <select id="selecao">
+
+        <option value="despesaCasa">Despesas com Casa</option>
+        <option value="despesaViagem">Despesas com Viagem</option>
+        <option value="despesaAlimentacao">Despesas com Alimentação</option>
+
+      </select>
+
+      <label for = "inputValorMinimo" required="">Valor Mínimo</label>
+      <input type = "number" id = "inputValor">
+
+      <label for = "inputValorMaximo" required="">Valor Máximo</label>
+      <input type = "number" id = "inputValor">
+
+      <button id="filtroDespesa" onclick="filtrarDespesas()">Filtrar</button>
+
+    </span>
+
+    <span>
+      <h1>Suas Despesas</h1>
+      <ul id="totalDespesas">
+
+      </ul>
+    </span>
+  </body>
+</html>
