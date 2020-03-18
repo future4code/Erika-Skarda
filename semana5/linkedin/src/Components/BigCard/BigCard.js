@@ -5,9 +5,9 @@ function BigCard (props) {
     return (
         <div className="big-card">  
 
-            <img src={ props.imagem } />
-            <h3>{ props.subtitulo }</h3>
-            <p>{ props.texto }</p>
+            <img className="imagens" src={ props.imagem } />
+            <h2>{ props.subtitulo }</h2>
+            <h4 className="apresentacao">{ props.texto }</h4>
 
         </div>
     )
