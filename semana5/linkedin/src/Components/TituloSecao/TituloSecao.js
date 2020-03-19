@@ -4,7 +4,7 @@ import './TituloSecao.css'
 function TituloSecao(props) {
     return (
       <div className="titulos-secao">
-          <h2>{ props.titulo }</h2>
+          <h1>{ props.titulo }</h1>
       </div>
     );
 }
