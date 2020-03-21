@@ -110,4 +110,4 @@ let consumo = 280
 let desconto = 0.15
 
 let valorConta = (consumo* 0.05) * 0.85
-console.log("O valor a ser pago é: " , valorConta, " Reais")
+console.log("O valor a ser pago é: " , valorConta, " Reais") 

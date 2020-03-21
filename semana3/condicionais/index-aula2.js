@@ -20,7 +20,7 @@ caso o resto dessa divisão seja diferente de 0 a mensagem será "Não passou no
 const numero1 = prompt("Digite o primeiro número.")
 const numero2 = prompt("Digite o segundo número")
 const numero3 = prompt("Digite o terceiro número.")
- /*
+ 
 if(numero1 < 0 || numero2 < 0) {
   
   console.log("Você escolheu número negativo, tente outra vez")
@@ -33,7 +33,7 @@ if(numero1 < 0 || numero2 < 0) {
   } else {
     console.log("Seu segundo número é maior", numero2,numero1)
 
-  } } */
+  } }
 
 //EXERCÍCIO 4 b. -->
 
