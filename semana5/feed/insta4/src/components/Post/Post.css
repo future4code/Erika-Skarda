@@ -22,10 +22,10 @@
 .user-photo {
     height: 30px;
     width: 30px;
-    margin-right: 10px;
+    margin-right:200px;
     border-radius: 50%;
 }
 
 .post-photo {
-    width: 100%;
+    width: 18%;
 }
