@@ -189,7 +189,7 @@ let par = (array) => {
             arrayPares.push(num)
         }
     }
-   qtdPares = arrayPares.length
+    qtdPares = arrayPares.length // recebr 6
     return console.log("Esse array possui " + qtdPares + "  números pares")
 }
 par(arrayExemplo)

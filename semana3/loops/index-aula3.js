@@ -64,7 +64,11 @@ console.log(arrayPares)
 
 //d.
 let index = 0
+const indexArray = []
+
 for(let i = 0; i < arrayOriginal.length; i++) {
   index = arrayOriginal[i]
-  console.log("O elemento do índex " + i + " é "+ index)
+   indexArray.push("O elemento do índex " + i + " é "+ index)
+  
 }
+console.log(indexArray)

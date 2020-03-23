@@ -291,9 +291,11 @@ function anonimizarPessoa() {
 
 //-----------------------------FIM--------------------------
 
+
 //Exercícios de Funções de array
 
 // 1. a)
+
 
 let arrayPessoas = [
 

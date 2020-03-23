@@ -1,0 +1,12 @@
+.imagens {
+
+   border-radius:50%;
+   heigth:4vh;
+   width:4vw;
+   float: left;
+   margin: 2%;
+
+}
+.apresentacao {
+    text-align: start;
+}
