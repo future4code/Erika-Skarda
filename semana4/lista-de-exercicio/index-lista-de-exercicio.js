@@ -322,15 +322,122 @@ let arrayPessoas = [
 
 // 2. a)
 
-    const arrayNumeros = [1, 2, 3, 4, 5, 6];
-    let arrayDobro = [];
+    const array = [1, 2, 3, 4, 5, 6]
+    const dobrar = array.map((numero, index, array) => {
+        return numero * 2
+    });
 
-    const dobrar = arrayNumeros.forEach((x, index, array) => {
-        return x
+console.log(dobrar);
+
+// 2. b)
+
+    const triplicar = array.map((numero, index, array) => {
+        return numero * 3
     })
-        console.log(arrayDobro)
 
-}
+    console.log(triplicar);
 
+// 2. c)
 
+    const verificar = array.map((numero, index, array) => {
 
+        if (numero % 2 === 0) {
+            return `${numero} é par `
+      
+        } else {
+            return `${numero} é ímpar`
+        }
+    });
+    console.log(verificar);
+
+// 3. a)
+
+    const pessoas = [
+        { nome: "Paula", idade: 12, altura: 1.8},
+        { nome: "João", idade: 20, altura: 1.3},
+        { nome: "Pedro", idade: 15, altura: 1.9},
+        { nome: "Luciano", idade: 22, altura: 1.8},
+        { nome: "Artur", idade: 10, altura: 1.2},
+        { nome: "Soter", idade: 70, altura: 1.9}
+    ]
+
+    const podeEntrar = pessoas.filter((pode, index, array) => {
+        return ((pode.idade >=14 && pode.idade < 60) && pode.altura >= 1.5)
+    
+    });
+
+    console.log(podeEntrar);
+
+//3. b)
+
+    const NpodeEntrar = pessoas.filter((pode, index, array) => {
+        return ((pode.idade >=14 && pode.idade < 60) && pode.altura >= 1.5)
+    
+    });
+
+    console.log(NpodeEntrar);
+
+    //4. a)
+    const consultas = [
+
+    { nome: "João", genero: "masculino", cancelada: true, dataDaConsulta: "01/10/2019" },
+	{ nome: "Pedro", genero: "masculino", cancelada: false, dataDaConsulta: "02/10/2019" },
+	{ nome: "Paula", genero: "feminino", cancelada: true, dataDaConsulta: "03/11/2019" },
+    { nome: "Márcia", genero: "feminino", cancelada: false, dataDaConsulta: "04/11/2019" }
+    
+    ]
+
+    const marcadas = consultas.map((marcada) => {
+        if(marcada.cancelada === false && marcada.genero === "feminino" ) {
+
+            return (`Olá, Sra ${marcada.nome}. Estamos enviando esta mensagem para
+            lembrá-la  da sua consulta no dia ${marcada.dataDaConsulta}. Por favor, acuse o recebimento deste e-mail.`)
+
+        } else if(marcada.cancelada === false && marcada.genero === "masculino" )
+
+            return (`Olá, Sr ${marcada.nome}. Estamos enviando esta mensagem para
+            lembrá-lo  da sua consulta no dia ${marcada.dataDaConsulta}. Por favor, acuse
+            o recebimento deste e-mail.`)
+
+    });
+    console.log(marcadas)
+
+//4. b)
+
+    const Nmarcadas = consultas.map((marcada) => {
+        if(marcada.cancelada === true && marcada.genero === "feminino" ) {
+
+            return (`Olá, Sra ${marcada.nome}. Infelizmente, sua consulta marcada
+            para o dia ${marcada.dataDaConsulta} foi cancelada. Se quiser, pode entrar em 
+            contato conosco para remarcá-la`)
+
+        } else if( marcada.cancelada === true && marcada.genero === "masculino" )  {
+
+            return (`Olá, Srr ${marcada.nome}. Infelizmente, sua consulta marcada
+            para o dia ${marcada.dataDaConsulta} foi cancelada. Se quiser, pode entrar em 
+            contato conosco para remarcá-la`)
+        }
+    });
+    console.log(Nmarcadas);
+
+// 5. 
+
+    const contas = [
+        { cliente: "João", saldoTotal: 1000, compras: [100, 200, 300] },
+        { cliente: "Paula", saldoTotal: 7500, compras: [200, 1040] },
+        { cliente: "Pedro", saldoTotal: 10000, compras: [5140, 6100, 100, 2000] },
+        { cliente: "Luciano", saldoTotal: 100, compras: [100, 200, 1700] },
+        { cliente: "Artur", saldoTotal: 1800, compras: [200, 300] },
+        { cliente: "Soter", saldoTotal: 1200, compras: [] }
+    ]
+
+    const atualizarSaldo = arr => {
+        arr.forEach (conta => {
+            conta.compras.forEach(compra => {
+                contas.saldoTotal -= compra;
+            })
+            
+        });
+    };
+    
+    console.log(atualizarSaldo(contas))
