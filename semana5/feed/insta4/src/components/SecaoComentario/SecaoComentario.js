@@ -6,11 +6,16 @@ export class SecaoComentario extends Component {
 		super(props)
 
 		this.state = {
-
+			inputUsuario:''
 		}
 	}
 
-	onChangeComentario() {
+	onChangeComentario = (event) => {
+		const oQueUsuarioDigitou = event.target.value
+		console.log(oQueUsuarioDigitou)
+		this.setState({
+			inputUsuario:oQueUsuarioDigitou
+		})
 
 	}
 
@@ -19,7 +24,7 @@ export class SecaoComentario extends Component {
 			<input
 				className={'input-comentario'}
 				placeholder={'Comentário'}
-				value={''}
+				value={this.state.inputUsuario}
 				onChange={this.onChangeComentario}
 			/>
 			<button onClick={this.props.aoEnviar}>Enviar</button>

@@ -6,6 +6,7 @@ import {IconeComContador} from '../IconeComContador/IconeComContador'
 import iconeCoracaoBranco from '../../img/favorite-white.svg'
 import iconeCoracaoPreto from '../../img/favorite.svg'
 import iconeComentario from '../../img/comment_icon.svg'
+
 import {SecaoComentario} from '../SecaoComentario/SecaoComentario'
 
 class Post extends React.Component {
@@ -13,17 +14,33 @@ class Post extends React.Component {
     super(props)
 
     this.state = {
-      curtido: false,
+     
+      curtido: true,
       numeroCurtidas: 0,
-      comentando: false,
+      comentando: true,
       numeroComentarios: 0
     }
   }
 
   onClickCurtida = () => {
-    console.log('Curtiu!')
-  }
+   
 
+    let qtd = this.state.numeroCurtidas
+    if(qtd) {
+      qtd = this.state.numeroCurtidas - 1
+      console.log("Descurtiu")
+    } else {
+      qtd = this.state.numeroCurtidas + 1
+      console.log('Curtiu!')
+    }
+
+    this.setState({
+      curtido: this.state.numeroCurtidas,
+      numeroCurtidas: qtd
+
+    })
+  }
+  
   onClickComentario = () => {
     this.setState({
       comentando: !this.state.comentando
@@ -38,12 +55,15 @@ class Post extends React.Component {
   }
 
   render() {
+
+
     let iconeCurtida
 
     if(this.state.curtido) {
-      iconeCurtida = iconeCoracaoPreto
-    } else {
       iconeCurtida = iconeCoracaoBranco
+      
+    } else {
+      iconeCurtida = iconeCoracaoPreto
     }
 
     let componenteComentario
@@ -52,7 +72,11 @@ class Post extends React.Component {
       componenteComentario = <SecaoComentario aoEnviar={this.aoEnviarComentario}/>
     }
 
-    return <div className={'post-container'}>
+  
+    return (
+
+    <div className={'app-container'}>
+        
       <div className={'post-header'}>
         <img className={'user-photo'} src={this.props.fotoUsuario} alt={'Imagem do usuario'}/>
         <p>{this.props.nomeUsuario}</p>
@@ -61,21 +85,24 @@ class Post extends React.Component {
       <img className={'post-photo'} src={this.props.fotoPost} alt={'Imagem do post'}/>
 
       <div className={'post-footer'}>
-        <IconeComContador
-          icone={iconeCurtida}
-          onClickIcone={this.onClickCurtida}
-          valorContador={this.state.numeroCurtidas}
-        />
+          <IconeComContador
+            icone={iconeCurtida}
+            onClickIcone={this.onClickCurtida}
+            valorContador={this.state.numeroCurtidas}
+          />
 
-        <IconeComContador
-          icone={iconeComentario}
-          onClickIcone={this.onClickComentario}
-          valorContador={this.state.numeroComentarios}
-        />
+          <IconeComContador
+            icone={iconeComentario}
+            onClickIcone={this.onClickComentario}
+            valorContador={this.state.numeroComentarios}
+          />
       </div>
       {componenteComentario}
+      
     </div>
-  }
-}
+    
+  );
+ }
+} 
 
 export default Post
