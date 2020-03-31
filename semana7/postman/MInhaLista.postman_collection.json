@@ -1,0 +1,46 @@
+{
+	"info": {
+		"_postman_id": "e8a4de9f-5010-4c53-a103-081b7b66df4e",
+		"name": "MInhaLista",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "getPlaylistSongs",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "auth",
+						"type": "text",
+						"value": "Erika-Hamilton"
+					}
+				],
+				"url": {
+					"raw": "https://us-central1-future-apis.cloudfunctions.net/spotifour/playlists/:playlistId/songs",
+					"protocol": "https",
+					"host": [
+						"us-central1-future-apis",
+						"cloudfunctions",
+						"net"
+					],
+					"path": [
+						"spotifour",
+						"playlists",
+						":playlistId",
+						"songs"
+					],
+					"variable": [
+						{
+							"key": "playlistId",
+							"type": "string",
+							"value": "8b3a1b9a-f23c-42dc-b896-e7907c68b809"
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"protocolProfileBehavior": {}
+}
