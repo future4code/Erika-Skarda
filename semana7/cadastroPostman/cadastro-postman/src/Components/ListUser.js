@@ -11,6 +11,7 @@ class ListUser extends React.Component {
             data : undefined,
             errorMessage: undefined,
             ListaDeUsuario: [],
+            pageDetails:[]
         }
     }
   // Buscando dados - vai rodar automa
@@ -75,9 +76,9 @@ class ListUser extends React.Component {
               <ul>
                   {this.state.ListaDeUsuario.map((user) => {
                    return <LiUser>
-                      {/* <p onClick = {() => this.state.onClickUser(user.id)}>{user.name}</p> */}
-                      <p>{user.name}</p>
-                      <BotaoDelete onClick = {() => this.deleteUser(user.id) }> X </BotaoDelete>
+                       <p onClick = {() => this.state.onClickUser(user.id)}>{user.name}</p> 
+                       <p>{user.name}</p>
+                       <BotaoDelete onClick = {() => this.deleteUser(user.id) }> X </BotaoDelete>
                       </LiUser>;
                     })}
               </ul>

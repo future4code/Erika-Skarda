@@ -22,49 +22,36 @@ class App extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
-      tarefas: [    
-          {
-            id: Date.now(), 
-            texto: 'Texto da tarefa',
-            completa: false 
-          },  
-      ],
-      inputValue: '',
-      filter: ''
+
+      tarefas: [] ,
+      inputValue:'',
+      filter:''
+    
     }
   }
 
   componentDidUpdate() {
-    const objetoSalvo ={
-      id:this.state.id,
-      texto: this.state.inputValue,
-      completa: this.state.completa
+    
+    const stringConvertida = JSON.stringify(this.state.tarefas);
+    localStorage.setItem("tarefas-armazenadas",stringConvertida)
+   
     };
-    const objetoString = JSON.stringify(objetoSalvo);
-
-    localStorage.setItem("tarefas-armazenadas",objetoString)
-
-      }
 
   componentDidMount() {
 
     const tarefasInput = localStorage.getItem("tarefas-armazenadas");
     if(tarefasInput !== null ) {
-      const  objetoTarefa = JSON.parse(tarefasInput);
+      const objetoTarefa = JSON.parse(tarefasInput);
 
-      this.setState ({
-        id: objetoTarefa.id,
-        inputValue:objetoTarefa.texto,
-        completa: objetoTarefa.completa
-      })
+      this.setState ({tarefas })
     }
 
   };
   //ARMAZENANDO VALORES DO INPUT
   onChangeInput = (event) => {
-    this.setState({
-      inputValue: event.target.value })
 
+    const valor = event.target.value
+    this.setState({inputValue:valor})
   }
 
   criaTarefa = () => {
@@ -74,24 +61,25 @@ class App extends React.Component {
       completa:this.state.completa
 
     }
+    console.log(tarefaNova)
     //Criar array com acréscimo da tarefa do input
     const copiaComTarefaNova =[...this.state.tarefas, tarefaNova]
     this.setState({tarefas:copiaComTarefaNova})
   }
 
   selectTarefa = (id) => {
-    const tarefasConcluidas = this.state.tarefas.map(tarefa => {
+    const tarefaRiscada = this.state.tarefas.map(x => {
       if(tarefa.id === id) {
-        tarefa.completa = !tarefa.completa
+        x.completa = !x.completa;
       }
-      return tarefa
+      return x
     })
+  
+    this.setstate({tarefas:tarefaRiscada})
   }
-
   onChangeFilter = (event) => {
     this.setState({
-      filter: event.target.value
-    })
+      filter: event.target.value})
 
   }
 

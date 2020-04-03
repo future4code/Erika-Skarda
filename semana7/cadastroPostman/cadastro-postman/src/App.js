@@ -3,7 +3,7 @@ import axios from "axios";
 import styled from 'styled-components'
 import CreateUser from './Components/CreateUser'
 import ListUser from './Components/ListUser'
-// import User from './Components/User'
+//  import User from './Components/UserDatails'
 import './App.css';
 
 class App extends React.Component {
@@ -11,23 +11,23 @@ class App extends React.Component {
     super(props);
 
     this.state = {
-      changePage : 1
+      changePage : 0
     };
   }
 
   changeComponent = () => {
     switch (this.state.changePage) {
-      case 1:
+      case 0:
         return <CreateUser/>;
-      case 2:
-        return <ListUser/>;
+      case 1:
+        return <ListUser/>
       default:
         return alert("Not Found!")
     }
   };
   nextPage = () => {
     this.setState({
-       changePage: this.state.changePage !=1 ? 1 : 2
+       changePage: this.state.changePage !=0 ? 0 : 1
     });
   };
 
@@ -42,7 +42,7 @@ class App extends React.Component {
             event.target.focus()
             this.nextPage() 
           }}
-          >{ this.state.changePage != 1 ? "Ir para página de Lista" : "Ir para página de registro" }
+          >{ this.state.changePage != 0 ? "Ir para página de Lista" : "Ir para página de registro" }
           </button>
           {change}
       </div>
