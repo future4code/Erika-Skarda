@@ -3,6 +3,7 @@ import axios from 'axios';
 import styled from 'styled-components'
 import PropTypes from 'prop-types'
 
+// chilly-family.surge.sh
 const baseUrl = "https://us-central1-future-apis.cloudfunctions.net/spotifour"
 class CreatePlaylist extends React.Component {
     constructor(props) {
@@ -24,19 +25,22 @@ class CreatePlaylist extends React.Component {
     createPlaylists = () => {
         const body = {
             name: this.state.inputPlaylist
+            
         };
+        console.log(body)
         axios
             .post(`${baseUrl}/playlists`,
             body,
             {
                 headers: {
-                  auth: "Erika-Hamilton"
+                  auth: "Erika-Hamilton",
+                  'Content-Type': 'application/json'
                 }
               }
             )
             .then((response) => {
-                console.log("Playlist Criada")
-                // this.searchPlaylist();
+                window.alert("Playlist Cadastrada!!");
+                console.log(response)
             })
             .catch(() => {
                 console.log("Erro")
@@ -46,6 +50,7 @@ class CreatePlaylist extends React.Component {
  
     render() {
         return (
+          <Container>
             <Formulario>
                 <div>
                     <label for = "nome">Playlist: </label>
@@ -56,13 +61,17 @@ class CreatePlaylist extends React.Component {
                         value = { this.state.inputPlaylist }
                     />
                 </div>
-            <BotaoSalvar onClick={this.createPlaylist}>Salvar</BotaoSalvar>
+            <BotaoSalvar onClick={this.createPlaylists}>Salvar</BotaoSalvar>
             
           </Formulario>
-        
+          </Container>
         )
     }   
 }
+const Container = styled.div `
+  background-image: url(https://images.typeform.com/images/gHvxL2PxYx7F);
+`
+
 const Formulario = styled.div`
     display: flex;
     flex-direction: column;    

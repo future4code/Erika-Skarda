@@ -17,9 +17,9 @@ class UserPlaylist extends React.Component {
     //Executado depois que o componente foi montado na DOM,
     //Acessado uma vez em um ciclo de vida. AS chamadas de API
     // devem ser feitas sempre com componentDidMount
-    componentDidMount () {
-      this.searchPlaylist()
-    }
+     componentDidMount () {
+       this.searchPlaylist()
+     }
 
     // searchPlaylist = async () => {
         
@@ -39,14 +39,16 @@ class UserPlaylist extends React.Component {
             "https://us-central1-future-apis.cloudfunctions.net/spotifour/playlists",
             {
               headers: {
-                auth: "Erika-Hamilton"
+                auth: "Erika-Hamilton",
+                'Content-Type': 'application/json'
               }
             }
           )
           .then((resposta) => {
-            const list = resposta.data.result.list;
-    
-            this.setState({ listaPlaylists: list });
+            const lista = resposta.data.result.list;
+            // window.alert("Playlist encontarda");
+            this.setState({ listaPlaylist: lista });
+            // console.log(listaPlaylist)
           })
           .catch((error) => {
             console.log(error);
@@ -58,46 +60,50 @@ class UserPlaylist extends React.Component {
             axios
             
             .delete (
-              `${baseUrl}/playlists/${id}`,
+              `https://us-central1-future-apis.cloudfunctions.net/spotifour/playlists/${id}`,
               
               {
                 headers: {
       
-                  "api-token": "Erika-Hamilton"
+                  "api-token": "Erika-Hamilton",
+                  'Content-Type': 'application/json'
       
                 }
               }
-              ).then(response => {
-                
+              ).then(()=> {
+                this.searchPlaylist()
                 window.alert("Usuário deletado!")
             })
-            .catch((error) => {
+            .catch(() => {
                 
               this.setState({ errorMessage: "Erro" });
             });
 
           } else {
-            window.alert("Playlist Deletada")
+            window.alert("Playlist n foi deletada")
           }
         } 
+
+      //   onClickPlaylist = (id) => {
+      //     this.setState({idPlaylist: id})
+      // }
+  
         render() {
          return (
             <Lista> 
               <h2>Suas Playlist: </h2>
                 <ul>
                     {this.state.listaPlaylist.map((playlist) => {
-                     return (
-                        <LiPlaylist>
-                         {/* <p onClick = {() => this.state.onClickPlaylist(playlist.id)}>{playlist.name}</p>  */}
-                             <span>{playlist.name}</span> 
-                            <BotaoDelete onClick = {() => this.deletePlaylist(playlist.id) }> X </BotaoDelete>
+                     return <LiPlaylist>
+                          <strong><p onClick = {() => this.state.onClickPlaylist(playlist.id)}>{playlist.name}</p></strong>
+
+                            <BotaoDelete onClick = {() => this.deletePlaylist(playlist.id)}> X </BotaoDelete>
                         </LiPlaylist>
-                        )
+                        
                       })}
                 </ul>
             </Lista>
             )
-  
         }
   }
   const Lista = styled.div`
