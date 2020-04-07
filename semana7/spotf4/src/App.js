@@ -6,6 +6,9 @@ import PropTypes from 'prop-types';
 import CreatePlaylist from './Components/CreatePlaylist';
 import UserPlaylist from './Components/UserPlaylist';
 import Details from './Components/Details'
+// import Home from './Components/Home'
+import SearchPlaylist from './Components/SearchPlaylist';
+// import Song from './Components/Song' --- Coloquei na Details
 
 class App extends React.Component {
   constructor(props) {
@@ -27,24 +30,26 @@ class App extends React.Component {
   onClickUserPlaylist = () => {
     this.setState({ changePage: "User Playlist" });
   };
-  //Detalhes: O usuário deve ser capaz de 
-  //visualizar os detalhes de uma playlist: o seu nome e as músicas que fazem parte dela
+  //MANDAR ELA PARA O COMPONENTE do Usuário e ele poder acessar esses detalhes conforme a playlist escol
   onClickDetails = (id) => {
     this.setState({ changePage: "Details"});
     this.setState({ idPlaylist: id});
     
   };
-  onClickSearchPlaylist = () => {
-    this.setState({ teste: "Search Playlist" });
-  };
-  //VERIFICAR SE PRECISO DECLARAR VARIÁVEL PARA SWITCH OU SE VAI RENDERIZAR 
-  render () {
+  // COMPONENTE DE PROCURAR
+   onClickSearchPlaylist = () => {
+     this.setState({ teste: "Search Playlist" });
+   };
+  //Função para troca de componente
+  aparece = () => {
 
     switch(this.state.changePage) {
       case "Create Playlist":
         return <CreatePlaylist/>;
       case "User Playlist":
-        return <UserPlaylist />
+        return <UserPlaylist onClickDetails = {this.onClickDetails}  />
+      // case "Home":
+      //   return <Home />
       case "Details":
         return <Details idPlaylist = {this.state.idPlaylist}/>
       // case "Search Playlist":
@@ -52,6 +57,8 @@ class App extends React.Component {
       default: 
     };
 
+  }
+  render() {
     return (
       <ContainerMenu>
         <Menu>
@@ -59,17 +66,25 @@ class App extends React.Component {
             <LogoF4>F4</LogoF4>
           <Ul>
            
-            <Li><Botao onClick = {this.onClickHome}>Home</Botao></Li>
+            <Li><Botao onClick = {this.onClickHome}>Home</Botao></Li> 
             <Li><Botao onClick = {this.onClickUserPlaylist}>Biblioteca</Botao></Li>
             <Li><Botao onClick = {this.onClickCreatePlaylist}>Criar Playlist</Botao></Li>
-            {/* <Li><Botao onClick = {this.SearchPlaylist}>Buscar</Botao></Li>  */}
-              {/* Criar função para procurar  */}
+            <Li><Botao onClick = {this.onClickSearchPlaylist}>Buscar</Botao></Li> 
+            
           </Ul>
         </Menu>
+
+        <Screen>
+          {this.aparece()}
+        </Screen>
       </ContainerMenu>
     )
   };
+
 }
+   
+  //Estilizando  
+
 
 const ContainerMenu = styled.div`
   
@@ -81,7 +96,7 @@ const Menu = styled.nav`
 
   background-color: #FE7E02;
   width: 100%;
-  height: 50px;
+  height: 100px;
   position: fixed;
   padding-left: 30px;
   display: flex;
@@ -109,6 +124,10 @@ const LogoF4 = styled.p`
   font-weight: 900;
   font-size: 20px;
   padding-bottom: 5px;
+`
+const Screen = styled.div`
+  overflow-y: scroll;
+  height:100%;
 `
 
 const Botao = styled.button`

@@ -18,86 +18,88 @@ class UserPlaylist extends React.Component {
     //Acessado uma vez em um ciclo de vida. AS chamadas de API
     // devem ser feitas sempre com componentDidMount
      componentDidMount () {
-       this.searchPlaylist()
+       this.getPlaylist()
      }
 
-    // searchPlaylist = async () => {
-        
-    //     const response = await axios.get(`${baseUrl}/playlists`, {
-    //         headers: {
-
-    //           "api-token": "Erika-Hamilton"
+ 
+    // getPlaylist = () => {
+    //     axios
+    //       .get(
+    //         `${baseUrl}/playlists`,
+    //         {
+    //           headers: {
+    //             auth: "Erika-Hamilton",
+    //             'Content-Type': 'application/json'
+    //           }
     //         }
+    //       )
+    //       .then((resposta) => {
+    //         const lista = resposta.data.result.list;
+    //         // window.alert("Playlist encontarda");
+    //         this.setState({ listaPlaylist: lista });
+           
     //       })
-         
-    //         this.setState({ listaPlaylist: response.data.result.list })
-    
-    // }
-    searchPlaylist = () => {
-        axios
-          .get(
-            "https://us-central1-future-apis.cloudfunctions.net/spotifour/playlists",
-            {
-              headers: {
-                auth: "Erika-Hamilton",
-                'Content-Type': 'application/json'
-              }
+    //       .catch((error) => {
+    //         console.log(error);
+    //         this.setState({ errorMessage: "Erro em acrescentar" });
+    //       });
+    //   } 
+     getPlaylist = async () => {
+        
+       const response = await axios.get(`${baseUrl}/playlists`, {
+           headers: {
+
+               auth: "Erika-Hamilton",
+              'Content-Type': 'application/json'
             }
-          )
-          .then((resposta) => {
-            const lista = resposta.data.result.list;
-            // window.alert("Playlist encontarda");
-            this.setState({ listaPlaylist: lista });
-            // console.log(listaPlaylist)
-          })
-          .catch((error) => {
-            console.log(error);
-            this.setState({ errorMessage: "Erro em acrescentar" });
           });
-      };
+         
+             this.setState({ listaPlaylist: response.data.result.list })
+    
+    }
     deletePlaylist = (id) => {
             if (window.confirm('Tem certeza de que deseja deletar essa playlist?')) {
-            axios
-            
-            .delete (
+            axios.delete (
               `https://us-central1-future-apis.cloudfunctions.net/spotifour/playlists/${id}`,
               
               {
                 headers: {
       
-                  "api-token": "Erika-Hamilton",
+                   auth: "Erika-Hamilton",
                   'Content-Type': 'application/json'
       
                 }
               }
               ).then(()=> {
-                this.searchPlaylist()
-                window.alert("Usuário deletado!")
+                this.getPlaylist()
+                window.alert("deletado!")
             })
             .catch(() => {
-                
-              this.setState({ errorMessage: "Erro" });
+              window.alert("Erro")
             });
 
           } else {
-            window.alert("Playlist n foi deletada")
+            window.alert("Playlist não foi deletada")
+            this.setState({ errorMessage: "Deu erro pra deletar" });
           }
-        } 
+        }  
 
-      //   onClickPlaylist = (id) => {
-      //     this.setState({idPlaylist: id})
-      // }
-  
         render() {
          return (
             <Lista> 
               <h2>Suas Playlist: </h2>
                 <ul>
-                    {this.state.listaPlaylist.map((playlist) => {
+                    {this.state.listaPlaylist.map((playlist, index) => {
                      return <LiPlaylist>
-                          <strong><p onClick = {() => this.state.onClickPlaylist(playlist.id)}>{playlist.name}</p></strong>
+                          
+                          <Playlists key = {index}>
+                            {playlist.name}<IconeDelete key = {index} onClick = {() => this.deletePlaylist(playlist.id)} src={require("./toxico.png")} 
+                            alt="Lixeirinha"/>
 
-                            <BotaoDelete onClick = {() => this.deletePlaylist(playlist.id)}> X </BotaoDelete>
+                            {/* Adicionar onClick para abrir os detalhes, vem do APP  */}
+                            <Details onClick = {() => this.props.onClickDetails(playlist.id)}>Detalhes</Details>
+                          </Playlists>
+                
                         </LiPlaylist>
                         
                       })}
@@ -106,25 +108,64 @@ class UserPlaylist extends React.Component {
             )
         }
   }
+
+  const Playlists = styled.p `
+  display: flex;
+  justify-content:space-between;
+  margin-left:20px;
+  margin-right:20px;
+  `
   const Lista = styled.div`
-  display:flex
+  display:flex;
   flex-direction: column;
-  margin:100px;
+  margin: 100px;
   padding: 30px;
-`
- const BotaoDelete = styled.button ` 
-  color: red;
-  cursor:pointer
-  font-size: 20px;
+ 
+`;
+ const IconeDelete = styled.img `
+  height: 20px;
+ 
+  padding: 2px;
+  cursor:pointer;
+  border-radius:2px;
  `
 
  const LiPlaylist = styled.li ` 
-   width: 30%;
-   margin-bottom: 10px;
-   padding-bottom: 5px;
+  width: 30%;
+  margin-bottom: 10px;
+  padding-bottom: 5px;
   border-bottom: 1px solid black;
   display: flex;
   justify-content: space-between;
-  color:black;
+  color:white;
 `
+const Details = styled.button`
+  z-index: 1;
+  position: relative;
+  font-size: inherit;
+  font-family: inherit;
+  color: white;
+  padding: 0.5em 1em;
+  outline: none;
+  border: none;
+  background-color: hsl(236, 32%, 26%);
+  overflow: hidden;
+  cursor: pointer;
+
+  ::after {
+    content: "";
+    z-index: -1;
+    background-color: hsla(0, 0%, 100%, 0.2);
+    position: absolute;
+    top: -50%;
+    bottom: -50%;
+    width: 1.25em;
+    transform: translate3d(-525%, 0, 0) rotate(35deg);
+  }
+
+  :hover::after {
+    transition: transform 0.45s ease-in-out;
+    transform: translate3d(200%, 0, 0) rotate(35deg);
+  }
+  `;
 export default UserPlaylist;

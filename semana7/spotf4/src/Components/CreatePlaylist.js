@@ -51,43 +51,50 @@ class CreatePlaylist extends React.Component {
     render() {
         return (
           <Container>
-            <Formulario>
-                <div>
-                    <label for = "nome">Playlist: </label>
+            
+                    <Label for = "nome">Dê um nome à sua playlist </Label>
                     <Input
                         type = "text"
                         name = "nome"
                         onChange = { this.onchangePlaylist}
                         value = { this.state.inputPlaylist }
                     />
-                </div>
+             
             <BotaoSalvar onClick={this.createPlaylists}>Salvar</BotaoSalvar>
             
-          </Formulario>
+        
           </Container>
         )
     }   
 }
 const Container = styled.div `
   background-image: url(https://images.typeform.com/images/gHvxL2PxYx7F);
+  background-color:#FE7E02;
+  width: 40vw;
+  height: 50vh;
+  border: 1px solid white;
+  border-radius: 5px;
+  margin: 20vh auto;
+  text-align: center;
 `
 
-const Formulario = styled.div`
-    display: flex;
-    flex-direction: column;    
-    width: 33vw;
-    margin:100px;
-    border: 1px double black;
-    padding: 30px;
-`
+// const Formulario = styled.div`
+//     display: flex;
+//     flex-direction: column;    
+//     width: 33vw;
+//     margin:100px;
+//     border: 1px double black;
+//     padding: 30px;
+// `
 const Input = styled.input ` 
+    width:20vw;
     border-radius: 5px;
     border: 1px solid black;
-    margin: 10px;
+    margin: 10px; 
     padding: 5px 2px;
 `
 const BotaoSalvar = styled.button`
-width: 30%;
+width: 20%;
   z-index: 1;
   position: relative;
   font-size: inherit;
@@ -116,4 +123,9 @@ width: 30%;
     transform: translate3d(200%, 0, 0) rotate(35deg);
   }
 `;
+
+const Label = styled.h1`
+  margin-bottom: 90px;
+  color:white
+`
   export default CreatePlaylist
