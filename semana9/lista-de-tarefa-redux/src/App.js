@@ -1,41 +1,26 @@
 import React from 'react'
 import styled from 'styled-components'
 import Footer from './Components/Footer'
+import TaskForm from './Components/TaskForm'
+import TaskList from './Components/TaskList'
 
 
-class App extends React.Component {
-  constructor(props) {
-    super(props)
-    this.state = {
-
-      tarefas: [] ,
-      inputValue:'',
-      filter:''
-    
-    }
-  }
-  render() {
-
+export default function App() {
+  
     return (
       <AppContainer>
 
           <H1>4Task</H1>
         
-        <InputsContainer>
-          <Input
-            value={this.state.inputValue} 
-            onChange={this.onChangeInput}
-            placeholder="O que tem que ser feito?"
-          />
-        
-        </InputsContainer>
+      <TaskForm/>
+      <TaskList/>
         <br/>
-
+       
         <Footer/>
       </AppContainer>
       )
     }
-  }
+  
 
   
   const H1 = styled.h1`
@@ -49,24 +34,7 @@ class App extends React.Component {
     color: #b83f45;
 
 `
-const Input = styled.input `
-  margin-top:20px;
-  width: 100%;
-  padding-left: 70px;
-  font-size: 25px;
-  height: 65px;
-  border: none;
-  border-bottom: 1px solid #00000021;
-  box-sizing: border-box;
 
-::placeholder{
-    font-style: italic;
-}
-`
-const InputsContainer = styled.div `
-  
-    
-`
 const AppContainer = styled.div`
     display:block;
     justify-content:center;
@@ -79,4 +47,3 @@ const AppContainer = styled.div`
 `;
 
 
-export default App

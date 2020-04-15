@@ -26,13 +26,16 @@ class Footer extends React.Component {
     render() {  
         return (
             <ButtonActions>
-                <StyledButton variant="outlined" color="secundary">Todas</StyledButton>
+                <StyledButton variant="outlined" color="secundary">Marcar todas como completas</StyledButton>
+                <p>Filtros: </p>
                 <StyledButton variant="outlined" color="secundary">Pendentes</StyledButton>
                 <StyledButton variant="outlined" color="secundary">Completas</StyledButton>
-                <StyledButton variant="outlined" color="secundary">Remover completas</StyledButton>
+                <div>
+                    <StyledButton variant="outlined" color="secundary">Remover completas</StyledButton>
+                </div>
             </ButtonActions>
         );
     }
 }
 
-export default Footer;
+export default (Footer);

@@ -5,8 +5,7 @@
         type: 'CREATE_TASK',
         payload: {
             text: text,
-            id: id,
-            completa:false
+            
         }
     }
 }
@@ -20,9 +19,9 @@ export function deleteTask(id){
     }
 }
 
-export function taskDone(id){
+export function toggleTask(id){
     return{
-        type: 'TASK_DONE',
+        type: 'TOGGLE_TASK',
         payload: {
             id: id
         }
@@ -31,15 +30,15 @@ export function taskDone(id){
 
 export function completeAll(){
     return{
-        type: 'COMPLETE_ALL',
+        type: 'COMPLETE_ALL_TASKS',
     }
 }
 
-export function filter(state){
+export function setFilter(filter){
     return{
-        type: 'FILTER',
+        type: 'SET_FILTER',
         payload:{
-            state: state
+            filter:filter
         }
     }
 }

@@ -1,6 +1,6 @@
 //Onde combinamos todos os reducers
 import { combineReducers } from "redux";
-import tarefas from "./tarefas";
+import{ tarefas } from "./tarefas";
 
 // Local onde juntamos todos os nossos reducers
 // em um só, lembrando, usamos o rootReducer
