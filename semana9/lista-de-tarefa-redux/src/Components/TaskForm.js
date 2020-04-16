@@ -45,7 +45,7 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = (dispatch) => {
    return{
-    createTask: text => dispatch(createTask(text))
+    createTodo: text => dispatch(createTodo(text))
 }
       
   }
