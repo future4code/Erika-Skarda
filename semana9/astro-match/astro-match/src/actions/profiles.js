@@ -6,4 +6,4 @@ export const clearSwipes = () => async (dispatch) => {
 	await axios.put(`${baseURL}/erika/clear`)
 }
 
-expo
+export const

@@ -49,7 +49,7 @@ class Footer extends React.Component {
 const mapDispatchToProps = dispatch => {
     return {
         completeAll: () => dispatch(completeAll()),
-        deleteAllComplete: () => dispatch(deleteAllComplete()),
+        deleteAllComplete: () => dispatch(ddeleteDoneTodos()),
         setFilter: filter => dispatch(setFilter(filter))
 
     }

@@ -1,7 +1,7 @@
 import React from 'react'
 import styled from 'styled-components'
 import { connect } from 'react-redux'
-import { toggleTask, deleteTask } from "../actions/todo";
+import { toggleTodo, deleteTodo } from "../actions/todo";
 
 // A função toggleTask vem das props graças ao método dispatch, o dispatch aciona o reducers
 class TaskList extends React.Component {
@@ -23,9 +23,9 @@ class TaskList extends React.Component {
                 return true;
               })
               .map(task => (
-                <li key={task.id} onClick={() => this.props.toggleTask(task.id)}>
+                <li key={task.id} onClick={() => this.props.toggleTodo(task.id)}>
                   {task.text} - Completa: {String(task.complete)}
-                  <button onClick={() => this.props.deleteTask(task.id)}>
+                  <button onClick={() => this.props.deleteTodo(task.id)}>
                     Deletar
                   </button>
                 </li>
