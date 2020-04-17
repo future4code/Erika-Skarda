@@ -24,6 +24,7 @@ export const swipeLeft = keyframes`
   }
 `;
 
+
 export const UserCardWrapper = styled.div`
 	box-shadow: 0 2px 10px 0 rgba(117,117,117,0.77);
 	position: relative;

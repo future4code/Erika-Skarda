@@ -6,6 +6,7 @@ import {mdiAccountSwitch} from '@mdi/js'
 import {updateCurrentPage} from '../../actions/route'
 import {Avatar, List, ListItem, ListText, MatchIcon} from './styled'
 
+import {getMatches} from '../../actions/profiles'
 class MatchScreen extends Component {
 	componentDidMount() {
 		if (this.props.getMatches) {
@@ -13,9 +14,11 @@ class MatchScreen extends Component {
 		}
 	}
 
-	render() {
-		const {goToSwipeScreen, matches} = this.props
 
+	render() {
+		
+		const {goToSwipeScreen, matches} = this.props
+		console.log(matches)
 		return (
 			<div>
 				<AppBar
@@ -43,12 +46,14 @@ MatchScreen.propTypes = {
 	getMatches: PropTypes.func.isRequired,
 	matches: PropTypes.array
 }
-
+// Pegar os matches via props
 const mapStateToProps = state => ({
+	matches:state.profiles.allMatches
 })
 
 const mapDispatchToProps = dispatch => ({
 	goToSwipeScreen: () => dispatch(updateCurrentPage('SwipeScreen')),
+	getMatches: () => dispatch(getMatches())
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(MatchScreen)

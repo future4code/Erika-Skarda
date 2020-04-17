@@ -21,7 +21,7 @@ const Router = (props) => {
 Router.propTypes = {
   currentPage: PropTypes.string.isRequired
 }
-
+// a currentPage que ve,m da router
 const mapStateToProps = (state) => ({
   currentPage: state.routes.currentPage,
 })

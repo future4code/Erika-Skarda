@@ -1,6 +1,7 @@
 //todas as informações que vem
 const initialState = {
-  profileToSwipe: null
+  profileToSwipe: null,
+  allMatches: []
 }
 
 const profiles = (state = initialState, action) => {
@@ -11,8 +12,16 @@ const profiles = (state = initialState, action) => {
         profileToSwipe: action.payload.profile
       }
     }
-  }
+    case "SET_MATCHES": {
+      return {
+        ...state,
+        allMatches: action.payload.matches
+
+      }
+    }  
+    default:
   return state
+  }
 }
 
 export default profiles

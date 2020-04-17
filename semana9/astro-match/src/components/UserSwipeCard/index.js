@@ -29,8 +29,10 @@ class UserSwipeCard extends Component {
         <InfoWrapper>
           <TitleWrapper>
             <UserName>{userToSwipe.name},</UserName>
-            <UserAge>{userToSwipe.age}</UserAge>
+            <UserAge>{userToSwipe.age},</UserAge>
+            
           </TitleWrapper>
+          <div>{userToSwipe.bio}</div>
         </InfoWrapper>
       </UserCardWrapper>)
   }
