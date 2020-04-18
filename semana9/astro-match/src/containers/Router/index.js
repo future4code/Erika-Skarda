@@ -12,7 +12,7 @@ const Router = (props) => {
     case "MatchScreen":
       return (<MatchScreen />)
     case "ProfileScreen":
-      return (<ProfileScreen/>)
+      return (<ProfileScreen onclickShowProfile={this.onclickShowProfile}/>)
     default:
       return (<h1>Error: invalid page selected</h1>)
   }

@@ -6,7 +6,9 @@ import {mdiAccountSwitch} from '@mdi/js'
 import {updateCurrentPage} from '../../actions/route'
 import {Avatar, List, ListItem, ListText, MatchIcon} from './styled'
 
-import {getMatches} from '../../actions/profiles'
+
+import {getMatches, getProfile} from '../../actions/profiles'
+
 class MatchScreen extends Component {
 	componentDidMount() {
 		if (this.props.getMatches) {
@@ -14,10 +16,9 @@ class MatchScreen extends Component {
 		}
 	}
 
-
 	render() {
 		
-		const {goToSwipeScreen, matches} = this.props
+		const {goToSwipeScreen,goToProfileScreen, matches, profileToSwipe} = this.props
 		console.log(matches)
 		return (
 			<div>
@@ -31,7 +32,7 @@ class MatchScreen extends Component {
 				<List>
 					{matches && matches.map((match) => (
 						<ListItem key={match.name}>
-							<Avatar src={match.photo}/>
+							<Avatar src={match.photo} onClick= {() => this.goToProfileScreen(this.props.profileToSwipe.id)}/>
 							<ListText>{match.name}</ListText>
 						</ListItem>
 					))}
@@ -43,16 +44,19 @@ class MatchScreen extends Component {
 
 MatchScreen.propTypes = {
 	goToSwipeScreen: PropTypes.func.isRequired,
+	goToProfileScreen:PropTypes.func.isRequired,
 	getMatches: PropTypes.func.isRequired,
 	matches: PropTypes.array
 }
 // Pegar os matches via props
 const mapStateToProps = state => ({
-	matches:state.profiles.allMatches
+	matches:state.profiles.allMatches,
+	profileToSwipe: state.profiles.profileToSwipe
 })
 
 const mapDispatchToProps = dispatch => ({
 	goToSwipeScreen: () => dispatch(updateCurrentPage('SwipeScreen')),
+	goToProfileScreen: () => dispatch(updateCurrentPage('ProfileScreen')),
 	getMatches: () => dispatch(getMatches())
 })
 

@@ -46,7 +46,7 @@ export const chooseProfile = (id, choice) => async (dispatch) => {
 		axios.post(`${baseURL}/erika/choose-person`, body
 		);
 	dispatch(getProfile(response.data.profile))
-	console.log(response.data.profile)
+	
 }
 
 //GET Get Matches - Retorna um array de perfis que deram match com você.
@@ -54,13 +54,13 @@ export const getMatches = () => async (dispatch) => {
 	const response = await
 		axios.get(`${baseURL}/erika/matches`)
 	dispatch(setMatches(response.data.matches))
-	console.log(response.data.matches)
+	
 }
 
 //PUT Clear - Limpa todos os matches e perfis vistos.
 export const clearSwipes = () => async (dispatch) => {
 	const response = await axios.put(`${baseURL}/erika/clear`)
 		dispatch(getMatches(response.data.message))
-		console.log(response.data.message)
+		
 	}
 
