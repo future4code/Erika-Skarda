@@ -9,9 +9,9 @@ import FormTrip from "../FormTrip"
 import ListTripsPage from "../ListTripsPage"
 import TripDetailsPage from "../TripDetailsPage"
 import HomePage from "../HomePage";
+import { connect } from "react-redux";
 
-
-const routes = {
+export const routes = {
   home: "/",
   form:"/form",
   login:"/login",
@@ -25,18 +25,18 @@ function Router(props) {
   return (
     <ConnectedRouter history={props.history}>
       <Switch>
-        <Route path={routes.home} component={HomePage} />
-        <Route path={routes.create} component={CreateTripPage}/>
-        <Route path={routes.login} component={LoginPage}/>
-        <Route path={routes.form} component={FormTrip}/>
-        <Route path={routes.list} component={ListTripsPage}/>
-        <Route path={routes.details} component={TripDetailsPage}/>
+        <Route exact path={routes.home} component={HomePage} />
+        <Route exact path={routes.create} component={CreateTripPage}/>
+        <Route exact path={routes.login} component={LoginPage}/>
+        <Route exact path={routes.form} component={FormTrip}/>
+        <Route exact path={routes.list} component={ListTripsPage}/>
+        <Route exact path={routes.details} component={TripDetailsPage}/>
       </Switch>
     </ConnectedRouter>
   );
 }
 
-export default Router;
+export default connect() (Router);
 
 // /    → Para o usuário escolher entre login e formulário de aplicação
 
