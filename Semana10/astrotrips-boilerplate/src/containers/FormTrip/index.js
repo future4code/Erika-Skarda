@@ -3,6 +3,7 @@ import { connect } from "react-redux";
 import { routes } from "../Router";
 import { push, replace, goBack } from "connected-react-router";
 import { CountryDropdown } from 'react-country-region-selector'
+
 import TextField from "@material-ui/core/TextField";
 import Button from "@material-ui/core/Button";
 
@@ -50,10 +51,7 @@ const formTrip = [
         pattern: "No mínimo 10 caracteres"
     },
     //     **country**: o usuário deve ver um dropdown com nomes de todos os países
-    //     **tripId:** id da viagem que o candidato quer ir, 
-    //o usuário deve ver um dropdown com o seguinte valor: 
-    //`Nome da Viagem - Planeta` e ao selecionar o id da viagem deve ser enviado ao backend.
-
+    //     **tripId:** id da viagem que o candidato quer ir,    
 ]
 class FormTrip extends React.Component {
     constructor(props) {
@@ -62,23 +60,37 @@ class FormTrip extends React.Component {
         this.state = {
             form: {
                 country:'',
+                
+            },
                 idTrip: '',
-                nomeDaViagem: ''
-            }
+                filter: 'Escolha seu destino'
         }
     }
-handleForm = e => {
-    //Pegando nome e value dos inputs
-    const { name, value } = e.target;
-    this.state({ form: { ...this.state.form, [name]: value}})
-}
-handleOnSubmit = e => {
-    e.preventDefault()
-    console.log(this.state.form)
-}
-selectCountry(val) {
-    this.setState({ country: val })
-}
+    componentDidMount() {
+        this.props.fetchAllTrips()
+
+    }
+    handleOnChangeForm = e => {
+        //Pegando nome e value dos inputs
+        const { name, value } = e.target;
+        this.state({ form: { ...this.state.form, [name]: value}})
+    }
+
+    // Precisa do Id
+    handleOnSubmit = e => {
+        e.preventDefault()
+        console.log(this.state.form)
+        this.props.applyToTrip(this.state.form)
+        this.props.applyToTrip(this.state.idTrip)
+        
+    }
+
+    selectCountry(val) {
+        this.setState({ country: val })
+    }
+    handleOnChangeSelect = e => {
+        this.setState({idTrip: e.target.value})
+    }
 render() {
     const{goToHome} = this.props
     const { country } = this.state
@@ -95,23 +107,40 @@ render() {
                         type = {dado.type}
                         value={this.state.form[dado.name] || ""}
                         required={dado.required}
-                        onChange={this.handleInputChange}
+                        onChange={this.handleOnChangeForm}
                         inputProps={dado.pattern}
 
                     />
                 </div>
 
             ))}
-            </form>
-           
-            <CountryDropdown
+             <CountryDropdown
                 value={country}
                 onChange={(val) => this.selectCountry(val)} 
             />
+            {/* //`Nome da Viagem - Planeta` e ao selecionar o id da viagem deve ser enviado ao back end. */}
+            <select value = { this.state.filter} onChange = { this.handleOnChangeSelect}>
+                {this.props.trips.map(option => {
+                    return (
+                        <option>{option.name} ♥️ {option.planet}</option>
+                    )
+
+                })}
+
+            </select>
+            <Button type="submit">Submit</Button>
+            </form>
+           
+           
             <Button onClick={goToHome}>HomePage</Button>
         </div>
     )
 }
+}
+const mapStateToProps = (state) => {
+    return {
+        trips: state.tasks.trips
+    }
 }
 const mapDispatchToProps = dispatch => {
     return {
