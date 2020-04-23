@@ -6,9 +6,8 @@ import Button from "@material-ui/core/Button";
 import styled from "styled-components";
 
 import { routes } from "../Router";
+import {login} from '../../actions/login'
 
-// vivacious-operation.surge.sh
-//flippant-scarf.surge.sh
 
 const LoginWrapper = styled.form`
   width: 100%;
@@ -34,12 +33,19 @@ class LoginPage extends Component {
     });
   };
 
+  handleOnSubmit = e => {
+
+    e.preventDefault()
+    this.props.login(this.state.email, this.state.password)
+    
+  }
+
   render() {
     const { email, password } = this.state;
     const { goToHome, goBack, goToList} = this.props
 
     return (
-      <LoginWrapper>
+      <LoginWrapper onSubmit={this.handleOnSubmit}>
         <TextField
           onChange={this.handleFieldChange}
           name="email"
@@ -54,18 +60,21 @@ class LoginPage extends Component {
           label="Password"
           value={password}
         />
-        <Button onClick = {goToList}>Login</Button>
-      <button onClick={goToHome}>Home</button>
-      <button onClick={goBack}>Voltar</button>
+        <Button type="submit">Login</Button>
+      
       </LoginWrapper>
-    );
-  }
+ )
+ }
 }
+/* <button onClick={goToHome}>Home</button>
+<button onClick={goBack}>Voltar</button> */
+   
 const mapDispatchToProps = (dispatch) => {
   return {
-      goToHome: () => dispatch(replace(routes.home)),
+      goToLogin: () => dispatch(replace(routes.login)),
       goBack:() => dispatch(goBack()),
-      goToList:() => dispatch(push(routes.list))
+    
+      login:(email, password) => dispatch(login(email,password))
       
   }
 }

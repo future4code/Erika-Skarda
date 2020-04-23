@@ -38,14 +38,3 @@ function Router(props) {
 
 export default connect() (Router);
 
-// /    → Para o usuário escolher entre login e formulário de aplicação
-
-// /application-form → Para qualquer usuário poder se increver
-
-// /login → Para o admin poder se logar
-
-// /trips/create  → Para criarmos viagens
-
-// /trips/list    → Para vermos todas as viagens
-
-// /trips/details  → Para vermos os candidatos de uma viagem

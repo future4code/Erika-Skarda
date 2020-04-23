@@ -2,11 +2,11 @@ import axios from 'axios'
 
 //Ações síncronas
 
-export const setAllTrips = (AllTrips) => {
+export const setAllTrips = (allTrips) => {
     return {
         type: 'SET_ALL_TRIPS',
         payload: {
-            trips:trips
+            allTrips:allTrips
         }
     }
 }
@@ -36,7 +36,5 @@ export const applyToTrip = (form, id) => async(dispatch, getstate) => {
 //DEL Delete Trip --> Endpoint que deleta uma viagem. 
 
 //POST Signup --> Cria um usuário
-
-//POST Login --> Faz o login de um usuário
 
 //PUT Decide Candidate -->  Este endpoint serve para decidir a aprovação ou não de um candidato para uma viagem.

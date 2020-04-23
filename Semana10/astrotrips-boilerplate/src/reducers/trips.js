@@ -1,16 +1,16 @@
 
 const initialState = {
-    trips: []
+    allTrips: []
 }
 
 const trips = (state = initialState, action) => {
     switch(action.type){
         case "SET_ALL_TRIPS": {
-            return {...state, trips: action.payload.trips}
+            return {...state, allTrips: action.payload.allTrips}
         }
         default:
             return state
     }
 }
 
-export default trips
+export default trips;
