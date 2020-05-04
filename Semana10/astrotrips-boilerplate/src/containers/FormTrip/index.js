@@ -3,7 +3,7 @@ import { connect } from "react-redux";
 import { routes } from "../Router";
 import { push, replace, goBack } from "connected-react-router";
 import { CountryDropdown } from 'react-country-region-selector'
-import { setAllTrips,
+import { 
          fetchAllTrips,
          applyToTrip
         } from '../../actions/trips'
@@ -63,10 +63,11 @@ class FormTrip extends React.Component {
         this.state = {
             form: {
                 country:'',
+                value: 'Escolha seu destino'
                 
             },
                 idTrip: '',
-                value: 'Escolha seu destino'
+                
         }
     }
     componentDidMount = () => {
@@ -98,6 +99,7 @@ render() {
     const{goToHome} = this.props
     const { country } = this.state
     console.log(this.props.allTrips)
+    
     return (
         <div>
         <form onSubmit={this.handleOnSubmit}>
@@ -106,6 +108,7 @@ render() {
                     <label htmlFor={dado.name}>{dado.name}: </label>
                     <TextField
                         name={dado.name}
+                        placeholder={dado.placeholder}
                         type={dado.type}
                         value={this.state.form[dado.name] || ""}
                         required={dado.required}
@@ -119,11 +122,11 @@ render() {
                 onChange={(val) => this.selectCountry(val)} 
             />
             {/* //`Nome da Viagem - Planeta` e ao selecionar o id da viagem deve ser enviado ao back end. */}
-             <select onChange = { this.handleOnChangeSelect}>
+             <select required onChange = { this.handleOnChangeSelect}>
                  <option>Escolha seu destino</option>
                 {this.props.allTrips.map(option => {
                     return (
-                        <option key = {option.id} value = {option.id}>{option.name} ♥️ {option.planet}</option>
+                        <option key = {option.id} value = {option.id}>{option.name} 🚀 {option.planet}</option>
                     )
 
                 })}

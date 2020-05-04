@@ -9,6 +9,15 @@ import { createStore, applyMiddleware, compose } from "redux";
 import { generateReducers } from "../../reducers";
 import { routerMiddleware } from "connected-react-router";
 
+
+import { createGlobalStyle } from "styled-components";
+
+const GlobalStyle = createGlobalStyle`
+  body {
+    background-image: url("https://i2.wp.com/socientifica.com.br/wp-content/uploads/2018/01/estrelas.jpg?fit=1600%2C800&ssl=1");
+  }
+`;
+
 export const history = createBrowserHistory();
 
 const middlewares = [
@@ -24,7 +33,7 @@ export const App = () => (
   <Provider store={store}>
     <MuiThemeProvider theme={theme}>
       <CssBaseline />
-    
+      <GlobalStyle/>
       <Router history={history} />
     </MuiThemeProvider>
   </Provider>
