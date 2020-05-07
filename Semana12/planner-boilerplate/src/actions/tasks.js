@@ -11,18 +11,27 @@ export const setTasks = (tasks) => {
 const baseURL = "https://us-central1-missao-newton.cloudfunctions.net/generic/:planner-erika"
 //GET Get Tasks
 export const getTask = () => async (dispatch, getState) => {
-    const response = await axios.get(`${baseURL}`)
-    dispatch(setTasks(response.data.tasks))
-    console.log(response.data.tasks)
-}
-
+    try {
+            const response = await axios.get(`${baseURL}`
+        )
+        dispatch(setTasks(response.data))
+        console.log(response.data)
+    } catch(err) {
+        console.log("Erro")
+    }
+};
 //POST Create Task
 export const createTask = (text, day) => async(dispatch, getState) => {
     const bananinha = {
         text:text,
         day:day
     }
-    
-    const response = await axios.post(`${baseURL}`, bananinha)
-    dispatch(getTask)
+    try {
+        const response = await axios.post(`${baseURL}`, bananinha
+        )
+        dispatch(getTask());
+        console.log(text) 
+    } catch {
+        console.log("Erro ao criar task")
+    }
 }

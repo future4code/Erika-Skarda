@@ -13,6 +13,25 @@ const Fieldset = styled.fieldset `
 `
 const Legend = styled.legend `
 `
+
+const Wrapper = styled.div`
+  max-width: 80vw;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border: 5px dotted #ee8972;
+  margin: 0 auto;
+    th {
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+     td {
+      list-style: none;
+      width: 100px;
+      margin-top: 15px;
+    }
+  } 
+`;
 class Planner extends React.Component {
   constructor(props) {
     super(props)
@@ -23,21 +42,29 @@ class Planner extends React.Component {
 
     }
   }
-  handleOnKeyPress = event => {
+componentDidMount() {
+  this.props.getTask()
+}
+handleOnKeyPress = event => {
   if(event.key === "Enter") {
     event.preventDefault()
-    this.setState({inputTask:event.target.value})
+    this.props.createTask(this.state.inputTask, this.state.day)
+    this.setState({ inputTask: "" });
   }
 }
+//recebo a create e com argumento do input e o day pra criar a nova tarefa
 handleFormOnSubmit = e => {
   e.preventDefault()
-  this.props.createTask(this.state.text, this.state.day)
+  this.props.createTask(this.state.inputTask, this.state.day)
+   this.setState({ inputTask: "" });
 }
+// Handle do select dos dias
 handleOnChangeSelect = e => {
   this.setState({ day: e.target.value})
 }
 
   render() {
+    console.log(this.props.newTask)
     const days = [
 
       "Segunda-Feira",
@@ -47,7 +74,6 @@ handleOnChangeSelect = e => {
       "Sexta-Feira",
       "Sábado",
       "Domingo"
-      
     ]
     
     return (
@@ -73,7 +99,9 @@ handleOnChangeSelect = e => {
             <option>Dia</option>
             {days.map(day => {
                 return(
-                <option key={day} value={day}>{day}</option>
+                <option key={day} value={day}>
+                  {day}
+                </option>
                 )
             })}
           </select>
@@ -81,42 +109,35 @@ handleOnChangeSelect = e => {
       </Form>
       <Fieldset>
         <Legend>Planner</Legend>
-        <section>
+        <Wrapper>
+          
+          {days.map((day) => {
+            return (
+              <table>
+               <thead>
+                <tr>
+                  <th>
+                    <strong>
+                     {day}
+                   </strong>
+                  </th>
+                </tr>
+               </thead>
 
-        <table> 
-          <thead>
-            <td>
-              <th>Dias</th>
-            </td>
-            
-            <tr>
-              <td>Segunda-feira
-                 {/* <ul id="1"></ul> */}
-              </td>
-              <td>Terça-feira
-                {/* <ul id="2" ></ul> */}
-              </td>
-              <td>Quarta-feira
-                {/* <ul id="3"></ul> */}
-              </td>
-              <td>Quinta-feira
-                {/* <ul id="4"></ul> */}
-              </td>
-              <td>Sexta-feira
-                {/* <ul id="5"></ul> */}
-              </td>
-              <td>Sábado
-                {/* <ul id="6"></ul> */}
-              </td>
-              <td>Domingo
-                {/* <ul id="7"></ul> */}
-              </td>
-              
-            </tr>
-          </thead>
-        </table>
-      </section> 
-
+                {this.props.newTask &&
+                 this.props.newTask.map((task) => {
+                   if (task.day === day) {
+                     return (
+                       <td key={task.id}>
+                         {task.text}
+                       </td>);
+                    }
+                  })}
+              </table>
+            );
+          })}
+        </Wrapper>
+        
       </Fieldset>
 
       </>
