@@ -24,7 +24,7 @@ describe("Testando reducer das tasks", () => {
             tasks: mockTask,
         }
     }
-     const newState = taskReducer(initialState, testAction);
+    const newState = taskReducer(initialState, testAction);
   
     //Validação
     //   mockTask.forEach((task, index) => {

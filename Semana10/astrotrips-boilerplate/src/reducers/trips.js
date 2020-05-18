@@ -1,7 +1,7 @@
 const initialState = {
     allTrips: [],
     details: [],
-    id:""
+    idTrip:""
 
 }
 
@@ -14,7 +14,7 @@ const trips = (state = initialState, action) => {
             return {...state, details: action.payload.details}
         }
         case "SET_TRIP_CHOOSEN_ID": {
-            return {...state, id: action.payload.id}
+            return {...state, idTrip: action.payload.idTrip}
         }
         default:
             return state

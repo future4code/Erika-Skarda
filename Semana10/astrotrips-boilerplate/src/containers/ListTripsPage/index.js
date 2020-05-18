@@ -37,18 +37,20 @@ handleLogout = () => {
 }
 
 handleDetails = (id) => {
-  //PEGO o id da viagem e vou para o detalhe dessa viagem
+  //Pego o id da viagem e vou para o detalhe dessa viagem
   this.props.setTripChoosen(id)
   this.props.goToDetails()
 }
+
 handleDelete = (id) => {
   this.props.setTripChoosen(id)
   this.props.deleteTrip(id) 
 }
+
 render() { 
   const {goToCreate, allTrips} = this.props
   const isLogged = window.localStorage.getItem('token') !== null
-  console.log(allTrips)
+ 
 return (
   <ListWrapper>
       <Button variant="contained" onClick={goToCreate}>Create Trip</Button>
@@ -82,8 +84,7 @@ return (
 const mapStateToProps = (state) => {
   return {
       allTrips: state.trips.allTrips
-  }
-  
+  } 
 }
 const mapDispatchToProps = dispatch => {
   return {

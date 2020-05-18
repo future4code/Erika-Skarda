@@ -2,14 +2,14 @@ import React from "react";
 import { connect } from "react-redux";
 import { routes } from "../Router";
 import { push, replace, goBack } from "connected-react-router";
-import { getTripDetail, decideCandidate } from "../../actions/trips"
+import { getTripDetail, decideCandidate, setAllDetails } from "../../actions/trips"
 //Material ui
 import { Typography, Divider,Avatar, Card } from "@material-ui/core";
 import Button from '@material-ui/core/Button';
 import styled from "styled-components"
 
 const DetailWrapper = styled.div `
-background: white;
+background: red;
 `
 class TripDetailsPage extends React.Component {
 
@@ -18,7 +18,7 @@ componentDidMount = () => {
     if(token === null || !token) {
         this.props.goToLogin()
     } else {
-    this.props.getTripDetail(this.props.id, token)
+    this.props.getTripDetail(this.props.idTrip, token)
     }
 };
 handleLogout = () => {
@@ -34,9 +34,10 @@ handleLogout = () => {
 // }  
 
  render() {
-    const{goToHome, details, id, goBack} = this.props
+    const{goToHome, details, idTrip, goBack} = this.props
     const isLogged = window.localStorage.getItem('token') !== null
     console.log(details)
+    console.log(idTrip)
 
     return (
       <DetailWrapper>
@@ -48,12 +49,13 @@ handleLogout = () => {
          <Typography component="p"><strong>Trip:</strong>{details.name}</Typography>
          <Typography component="p"><strong>Planet: </strong>{details.planet}</Typography>
          <Divider/>
-         <Typography component="h3">Candidate:</Typography>
+         <Typography component="p">Candidate:</Typography>
 
-          {(id.candidates) ? id.candidates.map(candidate => {
+          {(idTrip.candidates) ? idTrip.candidates.map(candidate => {
             return (
              <Card key={candidate.id}>
                 <Avatar alt="Marvin" src="../../img/Marvin.png"/> 
+                <Typography component="p">{candidate.name}</Typography>
                    
              </Card>
 
@@ -70,19 +72,20 @@ const mapStateToProps = state => {
 
        allTrips:state.trips.allTrips,
        details: state.trips.details,
-       id: state.trips.id  
+       idTrip: state.trips.idTrip
     }
 }
 const mapDispatchToProps = dispatch => {
     return {
         
-        goToHome: () => dispatch(push(routes.home)),
-        goBack: () => dispatch(goBack()),
-
-        getTripDetail: (id) => dispatch(getTripDetail(id)),
-        // decideCandidate: (tripId, candidateId) => dispatch(decideCandidate(tripId,candidateId))
+      goToHome: () => dispatch(push(routes.home)),
+      goBack: () => dispatch(goBack()),
+      setAllDetails:() => dispatch(setAllDetails()),
+      getTripDetail: (id, token) => dispatch(getTripDetail(id, token)),
+      decideCandidate: (tripId, candidateId) => dispatch(decideCandidate(tripId,candidateId))
     }
 }
+export default connect(mapStateToProps, mapDispatchToProps)(TripDetailsPage);
 const Loading = styled.div `
   position: relative;
   width: 10em;
@@ -125,4 +128,3 @@ const Loading = styled.div `
   }
 
 `
-export default connect(mapStateToProps, mapDispatchToProps)(TripDetailsPage);

@@ -56,7 +56,7 @@ handleOnKeyPress = event => {
 handleFormOnSubmit = e => {
   e.preventDefault()
   this.props.createTask(this.state.inputTask, this.state.day)
-   this.setState({ inputTask: "" });
+  this.setState({ inputTask: "" });
 }
 // Handle do select dos dias
 handleOnChangeSelect = e => {
