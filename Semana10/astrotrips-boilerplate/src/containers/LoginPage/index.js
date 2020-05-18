@@ -71,6 +71,14 @@ class LoginPage extends Component {
   handleOnclickShowPassword = () => {
     this.setState(state => ({ showPassword: !state.showPassword }));
   }
+  handleOnKeyPress = event => {
+
+    if(event.key === "Enter") {
+      event.preventDefault()
+      const { email, password } = this.state
+      this.props.login(email, password)
+    }
+  }
   render() {
     const { email, password, showPassword } = this.state;
     const { goToHome} = this.props;
@@ -92,6 +100,7 @@ class LoginPage extends Component {
           /> 
           <TextField
               onChange={this.handleFieldChange}
+              onKeyPress={this.handleOnKeyPress}
               id="outlined-adornment-password"
               name="password"
               type={showPassword ? 'text' : 'password'}

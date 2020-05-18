@@ -35,7 +35,7 @@ class HomePage extends Component {
                         <Imagem src={require("../../img/plutao.jpg")} />
                     </figure>
                 </ContainerCarrossel>
-
+            
             </Fragment>
         )
     }

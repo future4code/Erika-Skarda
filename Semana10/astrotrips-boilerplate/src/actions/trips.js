@@ -20,11 +20,11 @@ export const setAllDetails = (details) => {
         }
     }
 }
-export const setTripChoosen = (id) => {
+export const setTripChoosen = (idTrip) => {
     return {
         type: 'SET_TRIP_CHOOSEN_ID',
         payload: {
-            id
+            idTrip
         }
     }
 }
@@ -37,7 +37,7 @@ export const fetchAllTrips = () => async(dispatch,getState) => {
     // console.log(response.data.trips)
 }
 
-//POST Create Trip -        -> Esse endpoint cria uma nova viagem.
+//POST Create Trip --> Esse endpoint cria uma nova viagem.
 export const createTrip = (form) => async(dispatch,getState) => {
     //Buscando o token no LocalStorage
     const config = {
@@ -60,20 +60,26 @@ export const createTrip = (form) => async(dispatch,getState) => {
 }
 
 //GET Get Trip Detail --> Essa requisição retorna os detalhes e os 
-//candidatos de uma viagem específica.
-export const  getTripDetail = (id) => async(dispatch,getState) => {
-    
-    const response = await axios.get(`${baseURL}/trip/${id}`,
-    
-    {
+// //candidatos de uma viagem específica.
+// const token = window.localStorage.getItem('token')
+export const  getTripDetail = (id, token) => async(dispatch,getState) => {
+    const body =  {
         headers: {
-            auth:window.localStorage.getItem('token'),
+            auth: token,
             "Content-Type":"application/json"
         },
-    })
-    dispatch(setAllDetails(response.data.trip))
-    console.log(response.data.trip)
+    }
+    try {
+        const response = await axios.get(`${baseURL}/trip/${id}`,
+        body)
+        dispatch(setAllDetails(response.data.trip))
+        console.log(id)
+        console.log(token)
+        window.alert("Detalhes")
 
+    } catch{
+        window.alert("Algo errrado")
+    }
 }
 
 //POST Apply to Trip --> Esse endpoint recebe informações de um candidato e o relaciona a uma viagem.
