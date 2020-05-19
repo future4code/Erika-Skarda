@@ -23,12 +23,12 @@ function qualAEra(ano: number, sigla:string) : string {
             }
         break
         case "DC":
-            if (ano <= 475) {
+            if (ano < 475) {
                 idade = "Idade Antiga"
 
-            } else if (ano > 476 && ano <= 1452) {
+            } else if (ano >= 476 && ano <= 1452) {
                 idade = "Idade Média"
-            } else if (ano > 1453 && ano <= 1788) {
+            } else if (ano >= 1453 && ano <= 1788) {
                 idade = "Idade Moderna"
             } else if (ano >= 1789) {
                 idade = "Idade Contemporânea"
