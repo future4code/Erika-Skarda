@@ -1,0 +1,24 @@
+[
+  {
+    "name": "erika",
+    "yearOfBirth": 2000,
+    "cpf": 12312312345,
+    "saldo": 0
+  },
+  {
+    "name": "erika",
+    "dateOfBirth": "10/10/2000",
+    "cpf": 12312312343,
+    "saldo": 0
+  },
+  {
+    "cpf": null,
+    "saldo": 0,
+    "extratos": []
+  },
+  {
+    "cpf": null,
+    "saldo": 0,
+    "extratos": []
+  }
+]
