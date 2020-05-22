@@ -1,0 +1,18 @@
+{
+  "files": {
+    "main.js": "/static/js/main.6a49f293.chunk.js",
+    "main.js.map": "/static/js/main.6a49f293.chunk.js.map",
+    "runtime~main.js": "/static/js/runtime~main.a8a9905a.js",
+    "runtime~main.js.map": "/static/js/runtime~main.a8a9905a.js.map",
+    "static/js/2.49033c66.chunk.js": "/static/js/2.49033c66.chunk.js",
+    "static/js/2.49033c66.chunk.js.map": "/static/js/2.49033c66.chunk.js.map",
+    "index.html": "/index.html",
+    "precache-manifest.9768470a287cb79d465985d5e8500d2f.js": "/precache-manifest.9768470a287cb79d465985d5e8500d2f.js",
+    "service-worker.js": "/service-worker.js",
+    "static/media/jupiter.jpg": "/static/media/jupiter.08d1b3a3.jpg",
+    "static/media/logo.png": "/static/media/logo.64b65f0e.png",
+    "static/media/marte.jpg": "/static/media/marte.b8252334.jpg",
+    "static/media/netuno.png": "/static/media/netuno.1152e527.png",
+    "static/media/plutao.jpg": "/static/media/plutao.69615cf6.jpg"
+  }
+}

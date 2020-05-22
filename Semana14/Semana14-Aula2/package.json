@@ -1,0 +1,17 @@
+{
+  "name": "aula-node-package",
+  "version": "1.0.0",
+  "description": "Aula2-Backend",
+  "main": "index2.js",
+  "scripts": {
+    "start": "tsc && node build/index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Erika Skarda",
+  "license": "ISC",
+  "dependencies": {
+    "@types/node": "^14.0.1",
+    "ts-node": "^8.10.1",
+    "typescript": "^3.9.2"
+  }
+}
