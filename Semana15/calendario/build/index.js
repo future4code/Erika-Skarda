@@ -26,6 +26,7 @@ const moment_1 = __importDefault(require("moment"));
 moment_1.default.locale('pt-br');
 const fs = __importStar(require("fs"));
 const funcao = process.argv[2];
+const taskFile = 'taskFile.json';
 switch (funcao) {
     case "create event":
         createEvent();
@@ -37,11 +38,12 @@ switch (funcao) {
         console.log("Escolha uma função: create event ou get event, por gentileza");
         break;
 }
-const taskFile = 'taskFile.json';
 function getEvents() {
+    const taskFile = 'taskFile.json';
     try {
-        const readFile = fs.readFileSync(taskFile, "utf-8");
-        const taskFileToObject = JSON.parse(readFile);
+        const readFile = fs.readFileSync(taskFile);
+        const treatedData = readFile.toString();
+        const taskFileToObject = JSON.parse(treatedData);
         console.log(taskFileToObject);
     }
     catch (err) {
@@ -50,6 +52,8 @@ function getEvents() {
 }
 // getEvents(atividades)
 function createEvent() {
+    let arrayTasks = [];
+    const taskFile = 'taskFile.json';
     const data = moment_1.default(process.argv[5], "DD/MM/YYYY");
     //transforma a data em string
     const dataFormatada = data.format("L");
@@ -60,6 +64,8 @@ function createEvent() {
         horaDeInicio: moment_1.default(process.argv[6], "hh:mmA"),
         horaFInal: moment_1.default(process.argv[7], "hh:mmA")
     };
+    //    const now:moment.Moment = moment();
+    //    const diffDate = atividades.data.diff(now);
     const today = moment_1.default();
     console.log(today);
     const data1 = today.unix();
@@ -70,14 +76,15 @@ function createEvent() {
             const data = fs.readFileSync(taskFile);
             const treatedData = data.toString();
             const arquivoJson = JSON.parse(treatedData);
-            if (arquivoJson.find((task) => task.data === dataFormatada)) {
-                console.log(`Você já possui tarefa para: ${atividades.data}`);
+            if (arquivoJson.find((task) => task.data === atividades.data)) {
+                console.log(`Você já possui tarefa : ${atividades.nome}`);
             }
             else {
+                arrayTasks = arquivoJson;
+                arrayTasks.push(atividades);
                 try {
-                    arquivoJson.push(atividades);
-                    const jsonToString = JSON.stringify(atividades, null, 3);
-                    fs.appendFileSync(taskFile, jsonToString);
+                    const jsonToString = JSON.stringify(arrayTasks, null, 3);
+                    fs.writeFileSync(taskFile, jsonToString);
                     console.log('Dado inserido com sucesso');
                 }
                 catch (error) {

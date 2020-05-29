@@ -1,9 +1,9 @@
-
 import moment from 'moment'
 moment.locale('pt-br');
 import * as fs from 'fs';
 
 const funcao: string = process.argv[2]
+const taskFile: string = 'taskFile.json';
 
 switch(funcao) {
     case "create event":
@@ -27,14 +27,15 @@ type atividade = {
     
 }
 
-const taskFile: string = 'taskFile.json';
-
 function getEvents(): any {
-    
+
+const taskFile: string = 'taskFile.json';
+  
     try {
         
-        const readFile = fs.readFileSync(taskFile, "utf-8")
-        const taskFileToObject: any = JSON.parse(readFile)
+        const readFile = fs.readFileSync(taskFile)
+        const treatedData: string = readFile.toString()
+        const taskFileToObject: any = JSON.parse(treatedData)
         console.log(taskFileToObject)
 
     } catch (err) {
@@ -44,9 +45,12 @@ function getEvents(): any {
 }
 // getEvents(atividades)
 
-
-
 function createEvent() : any {
+let arrayTasks = [];
+// Vc escreve o array no json! Quando vc lê o json vc guarda tudo de novo no array,
+//  adiciona a nova tarefa e depois escreve o array todo de novo
+// pq aí ele sobrescreve tudo de novo com a nova tarefa 
+const taskFile: string = 'taskFile.json';
 
  const data = moment(process.argv[5], "DD/MM/YYYY")
  //transforma a data em string
@@ -61,6 +65,10 @@ function createEvent() : any {
         horaFInal: moment(process.argv[7], "hh:mmA")
 
    }
+//    const now:moment.Moment = moment();
+//    const diffDate = atividades.data.diff(now);
+
+
     const today = moment();
     console.log(today);
     const data1 = today.unix()
@@ -68,23 +76,25 @@ function createEvent() : any {
     const result = data2 - data1
 
     if(atividades.nome && atividades.descricao && atividades.data && result >= 0) {
+
         try {
 
             const data: Buffer = fs.readFileSync(taskFile)
             const treatedData: string = data.toString()
             const arquivoJson: any = JSON.parse(treatedData)
 
-                if(arquivoJson.find((task: any) => task.data === dataFormatada)) {
+                if(arquivoJson.find((task: any) => task.data === atividades.data)) {
 
                     console.log(`Você já possui tarefa : ${atividades.nome}`)
 
                 } else {
+                    arrayTasks = arquivoJson
+                    arrayTasks.push(atividades)
 
                     try {
 
-                        arquivoJson.push(atividades)
-                        const jsonToString = JSON.stringify(atividades, null, 3)
-                        fs.appendFileSync(taskFile, jsonToString)
+                        const jsonToString = JSON.stringify(arrayTasks, null, 3)
+                        fs.writeFileSync(taskFile, jsonToString)
                         console.log('Dado inserido com sucesso')
 
                     } catch (error) {
