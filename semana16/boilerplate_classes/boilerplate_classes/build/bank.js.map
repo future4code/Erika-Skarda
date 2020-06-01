@@ -1,0 +1,1 @@
+{"version":3,"file":"bank.js","sourceRoot":"","sources":["../src/bank.ts"],"names":[],"mappings":";;;AAGA,MAAa,IAAI;IAIf,YAAY,QAAuB,EAAE,WAA4B;QAC/D,IAAI,CAAC,QAAQ,GAAG,QAAQ,CAAC;QACzB,IAAI,CAAC,WAAW,GAAG,WAAW,CAAA;IAChC,CAAC;CAaF;AApBD,oBAoBC"}
