@@ -11,7 +11,7 @@ export class JSONFileManager {
     fs.writeFileSync(this.fileName, JSON.stringify(objectToSave, null, 2))
   }
 
-  getObjectFromFIle(): Object {
+  getObjectFromFile(): Object {
     return JSON.parse(fs.readFileSync(this.fileName).toString());
   }
 }

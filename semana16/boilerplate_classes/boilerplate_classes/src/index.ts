@@ -24,7 +24,7 @@ export class UserAccount {
        age: number,
        transactions: Transaction[] = []) {
   
-        console.log("Chamando o construtor da classe UserAccount")
+        
       this.balance = balance;
       this.cpf = cpf;
       this.name = name;
@@ -32,12 +32,16 @@ export class UserAccount {
       this.transactions = transactions
 
     }
-  
+      public getCpf(): string {
+        return this.cpf
+      }
+      public getAge(): number {
+        return this.age
+      }
        public getBalance(): number {
            return this.balance
       
-      }
-  
+       }
        public addBalance(value: number): void {
          this.balance += value
          console.log('Saldo atualizado com sucesso')

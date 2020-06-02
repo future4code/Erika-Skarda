@@ -9,7 +9,7 @@ class JSONFileManager {
     writeObjectToFile(objectToSave) {
         fs.writeFileSync(this.fileName, JSON.stringify(objectToSave, null, 2));
     }
-    getObjectFromFIle() {
+    getObjectFromFile() {
         return JSON.parse(fs.readFileSync(this.fileName).toString());
     }
 }

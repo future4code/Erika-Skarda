@@ -10,6 +10,12 @@ class UserAccount {
         this.age = age;
         this.transactions = transactions;
     }
+    getCpf() {
+        return this.cpf;
+    }
+    getAge() {
+        return this.age;
+    }
     getBalance() {
         return this.balance;
     }
