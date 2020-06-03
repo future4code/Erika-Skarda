@@ -1,9 +1,9 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.UserAccount = void 0;
+const bank_1 = require("./bank");
 class UserAccount {
     constructor(balance = 0, cpf, name, age, transactions = []) {
-        console.log("Chamando o construtor da classe UserAccount");
         this.balance = balance;
         this.cpf = cpf;
         this.name = name;
@@ -25,8 +25,14 @@ class UserAccount {
     }
 }
 exports.UserAccount = UserAccount;
-const account = new UserAccount(0, "12312312312", "Erika", 20, []);
-console.log("\x1b[36m%s\x1b[35m", "O seu saldo é: ", account.getBalance());
-account.addBalance(10);
-console.log(account);
+const name = process.argv[4];
+const cpf = process.argv[3];
+const balance = Number(process.argv[2]);
+const age = Number(process.argv[5]);
+const newAccount = new UserAccount(balance, cpf, name, age);
+console.log("\x1b[36m%s\x1b[35m", "O seu saldo é: ", newAccount.getBalance());
+newAccount.addBalance(10);
+console.log(newAccount);
+const newBank = new bank_1.Bank();
+console.log(newBank.createAccount(newAccount));
 //# sourceMappingURL=index.js.map

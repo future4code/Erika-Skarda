@@ -1,5 +1,6 @@
 import {Transaction} from './transaction';
 import {JSONFileManager} from './JSONFileManager';
+import { Bank } from './bank';
 //1- O contructor nos permite ter acesso aos atributos das classes,
 //  quando criamos a nova instância
 
@@ -48,10 +49,17 @@ export class UserAccount {
 
        }
 }
+const name: string = process.argv[4]
+const cpf: string = process.argv[3]
+const balance: number = Number(process.argv[2])
+const age: number = Number(process.argv[5])
 
-const account: UserAccount = new UserAccount(0 , "12312312312", "Erika", 20, [])
-console.log("\x1b[36m%s\x1b[35m","O seu saldo é: " , account.getBalance())
+const newAccount = new UserAccount(balance, cpf, name, age)
+console.log("\x1b[36m%s\x1b[35m","O seu saldo é: " , newAccount.getBalance())
 
-account.addBalance(10)
+newAccount.addBalance(10)
 
-console.log(account)
+console.log(newAccount)
+
+const newBank: Bank = new Bank()
+console.log(newBank.createAccount(newAccount))
