@@ -1,7 +1,10 @@
 import { Residence } from "./residence";
 import { Client } from "./client";
 
-class ResidentialClient extends Residence implements Client {
+export class ResidentialClient extends Residence implements Client {
+
+  static RESIDENTIAL_TARIFF = 0.75
+
     constructor(
       public name: string,
       public registrationNumber: number,
@@ -18,6 +21,6 @@ class ResidentialClient extends Residence implements Client {
     }
   
     public calculateBill(): number {
-      return this.consumedEnergy * 0.75;
+      return this.consumedEnergy * ResidentialClient.RESIDENTIAL_TARIFF;
     }
   }

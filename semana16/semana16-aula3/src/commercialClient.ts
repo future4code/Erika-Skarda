@@ -1,7 +1,10 @@
 import { Commerce } from "./commerce";
 import { Client } from "./client";
 
-class CommercialClient extends Commerce implements Client {
+export class CommercialClient extends Commerce implements Client {
+
+  static COMMERCIAL_TARIFF = 0.53
+
     constructor(
       public name: string,
       public registrationNumber: number,
@@ -14,7 +17,7 @@ class CommercialClient extends Commerce implements Client {
     }
   
     public calculateBill(): number {
-      return this.consumedEnergy * 0.53;
+      return this.consumedEnergy * CommercialClient.COMMERCIAL_TARIFF;
     }
   
     public getCnpj(): string {
