@@ -24,3 +24,4 @@ export class ResidentialClient extends Residence implements Client {
       return this.consumedEnergy * ResidentialClient.RESIDENTIAL_TARIFF;
     }
   }
+
