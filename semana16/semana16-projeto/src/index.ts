@@ -96,10 +96,15 @@ const novaTurmaNoturna: Noturna = new Noturna (
     3)
 
 //console.log(novaTurmaNoturna)
+
 //novaTurmaNoturna.addStudent(novoEstudante2)
 //novaTurmaNoturna.addTeacher(novoDocente2)
 
 //novaTurmaNoturna.setName("Bananinha-na-night"); ---> muda o nome
 //console.log(novaTurmaNoturna)
 //console.log(novaTurmaNoturna.getName())
-novaTurmaNoturna.addMission(novaTurmaNoturna)
+//novaTurmaNoturna.addMission(novaTurmaNoturna)
+
+console.log(novaTurmaNoturna.getAllStudents())
+
+//novaTurmaNoturna.limpandoArrayDeEstudantes(2,1)

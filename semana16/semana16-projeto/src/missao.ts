@@ -63,6 +63,7 @@ export abstract class Missao {
        public getAllTeachers(): Docente[] {
 
          const fileManager = new FileManager("todosDocentes.json")
+         
          return fileManager.readFile() 
        
        }
@@ -89,11 +90,13 @@ export abstract class Missao {
        public getAllStudents(): Estudante[] {
 
         const fileManager = new FileManager("todosEstudantes.json")
+        // console.log(this.listaDeEstudantes)
         return fileManager.readFile() 
         
        }
 
        public addStudent(novoEstudante: Estudante): void {
+
 
          const existe = this.listaDeEstudantes.find((estudante:any) => {
 
@@ -152,5 +155,15 @@ export abstract class Missao {
           console.error(err);
         }
       }
+
+      public limpandoArrayDeEstudantes(numero: number,numeroApagar:number): void {
+        console.log(this.listaDeEstudantes)
+
+        this.listaDeEstudantes.splice(numero,numeroApagar)
+
+        console.log("nova lista de estudantes" + this.listaDeEstudantes)
+
+      }
+
       
 } 
