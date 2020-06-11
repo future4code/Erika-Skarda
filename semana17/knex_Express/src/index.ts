@@ -81,8 +81,67 @@ const createActor = async (
       })
       .into("Actor");
   };
+ 
+///console.log(createActor("005","Erika", 1000000, new Date("2000,10,10"),"famele","pistache","'NotDirector'"))
 
-  console.log(createActor("005","Erika", 1000000, new Date("2000,10,10"),"famele","pistache","'NotDirector'"))
+const updateActor = async (id: string, salary: number): Promise<any> => {
+    try {
+
+    await connection("Actor")
+      .update({
+        salary: salary,
+      })
+      .where({id:id});
+
+  } catch (error) {
+
+    console.error("\x1b[31m","Deu Erro!")
+
+  }
+}
+const updateSalary = async (salary: number, id: string): Promise<any> => {
+    try {
+      const results = await connection
+        .update({ salary })
+        .from("Actor")
+        .where({ id });
+      return results;
+    } catch (err) {
+      console.error(err.message);
+    }
+  };
+//console.log(updateActor("004",23))
+
+const deleteActor = async (id:string):Promise<void> => {
+    try {
+        await connection("Actor")
+         .del()
+         .where({id})
+    } catch (err) {
+        console.error(err)
+    }
+}
+
+//deleteActor("004")
+
+const avgSalaryGender = async(gender:string): Promise<any> => {
+    try {
+        const result = await connection
+         .avg("salary as average")
+         .where ({gender})
+         .from("Actor")
+        
+        return console.log("\x1b[36m", `A média dos salário dos atores do sexo ${gender} é`,  
+        result[0].average)
+
+    } catch(err) {
+
+        console.error("\x1b[31m","Deu Erro!")
+    }
+}
+
+//avgSalaryGender("female")
+
 const app = express();
 
 app.use(express.json());
