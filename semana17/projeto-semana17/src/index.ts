@@ -57,12 +57,33 @@ try {
         `
      );
     }
-    createTableTask()
+    //createTableTask()
 
 } catch (err) {
 
     throw new Error(err.message);
 }
+const createTableTaskENUM = async (): Promise<any> => {
+    try {
+      await connection.raw(`
+
+      CREATE TABLE TodoList (
+        id VARCHAR(255) PRIMARY KEY, 
+        title VARCHAR(255) NOT NULL, 
+        description TEXT NOT NULL, 
+        status ENUM("to_do", "doing", "done") NOT NULL DEFAULT "to_do",
+        limit_date DATE NOT NULL,
+        creator_user_id varchar(255) NOT NULL,
+        FOREIGN KEY (creator_user_id) REFERENCES User(id)
+      );
+      `
+    );
+   
+    } catch (err) {
+      console.error(err.message);
+    }
+  };
+  //createTableTaskENUM()
 const createUser = async(id:string, name:string, nickname:string,email:string): Promise<void> => {
 
     try {
@@ -123,6 +144,7 @@ const editInfoUser = async(id:string, name:string, nickname:string):Promise<any>
             UPDATE User
             SET name = "${name}", nickname = "${nickname}"
             WHERE id = "${id}"
+
             `
         )
         return (result[0][0])
@@ -134,7 +156,72 @@ const editInfoUser = async(id:string, name:string, nickname:string):Promise<any>
 }
 
 //console.log(editInfoUser("gab","Gabi","Gabi_garrafinha"))
-//******************************************************************* *//
+
+const createTask = async(id:string, title:string, description:string, limit_date:Date, creator_user_id:string ):Promise<any> => {
+    try {
+
+        await connection.raw (
+         `
+            INSERT INTO TodoList
+            VALUES("${id}", "${title}","${description}",${limit_date},"${creator_user_id}")
+
+         `
+        )
+        //console.log(createTask("123", "Limpar casa","Banheiro,cozinha e sala",new Date("2020-10-10"),"gab"))
+    } catch(err) {
+
+        throw new Error(err.message);
+    }
+}
+const createTaskQuery = async (id:string, title:string, description:string, 
+    limit_date:Date, creator_user_id:string): Promise<void> => {
+
+    await connection
+      .insert({
+        id,
+        title,
+        description,
+        limit_date,
+        creator_user_id
+       
+      })
+      .into("TodoList");
+  };
+  //console.log(createTaskQuery("123", "Limpar casa","Banheiro,cozinha e sala",new Date("2020-10-10"),"gab"))
+const getTaskById = async(id:string): Promise<any> => {
+    try {
+
+      const task = await connection.raw (
+        `
+         SELECT * FROM TodoList
+         WHERE id = "${id}" 
+        
+        `
+      )
+      return task[0][0]
+    } catch(err) {
+        
+        console.error("\x1b[31m","Erro ao encontrar usuário")
+    }
+}
+//console.log(getTaskById("gab"))
+
+const getTaskByIdQuery = async(id:string) : Promise<any> => {
+    try {
+
+      const task = await connection
+       .select("*")
+       .from("TodoList")
+       .where({id:id})
+
+       return task
+
+    } catch(err) {
+        
+        console.error("\x1b[31m","Erro ao encontrar usuário")
+    }
+}
+  //******************************************************************* *//
 
 const app = express()
 app.use(express.json())
@@ -197,7 +284,50 @@ const putUserEndPoint = async(req:Request, res:Response): Promise<any> => {
 
 app.put("/user/edit/:id", putUserEndPoint)
 
+app.get("/", (req:Request, res:Response) => {
+    connection
+     .select("*")
+     .from("User")
+     .then(data => res.send(data))
+     .catch(err => res.send(err.mysqlMessage || err.message ))
+})
+//*************************END POINTS DAS TAREFAS****************************************** *//
+const putTaskEndPoint = async(req:Request, res:Response) : Promise<any> => {
 
+    try {
+
+      const task = {
+        id : (Date.now()).toString(),
+      }
+        const {title, description, limit_date, creator_user_id} = req.body
+        
+        await createTaskQuery(task.id, title, description, limit_date, creator_user_id)
+        res.status(200).send({message: `Tarefa ${title} criada com sucesso!!!`})
+
+    } catch(err) {
+
+        res.status(400).send({error: err.message || err.mysqlMessage});
+    }
+}
+app.put("/task", putTaskEndPoint)
+
+const getTaskEndPoint = async(req:Request, res:Response) : Promise<any> => {
+
+  try {
+
+    const id = req.params.id
+    const taskResult = await getTaskByIdQuery(id)
+
+    res.status(200).send(taskResult)
+
+  } catch (err) {
+
+        res.status(400).send({err: err.message || err.mysqlMessage})
+  }
+
+}
+app.get("/task/:id", getTaskEndPoint)
+//******************************************************************* *//
 const server = app.listen(process.env.PORT || 3000, () => {
   
     if (server) {
