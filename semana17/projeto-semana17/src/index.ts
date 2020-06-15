@@ -80,10 +80,26 @@ const createTableTaskENUM = async (): Promise<any> => {
     );
    
     } catch (err) {
-      console.error(err.message);
+
+      console.error("\x1b[31m", err.message || err.mysqlMessage);
     }
+
   };
-  //createTableTaskENUM()
+  const createTableTaskRelation = async (): Promise<any> => {
+
+    
+
+      await connection.raw(`
+        CREATE TABLE TodoListRelation (
+         task_id VARCHAR(255),
+         responsible_user_id VARCHAR(255),
+         FOREIGN KEY (task_id) REFERENCES TodoList(id),
+         FOREIGN KEY (responsible_user_id) REFERENCES User(id)
+        );
+         `)
+
+};
+//createTableTaskRelation()
 const createUser = async(id:string, name:string, nickname:string,email:string): Promise<void> => {
 
     try {
@@ -96,14 +112,13 @@ const createUser = async(id:string, name:string, nickname:string,email:string): 
 
         }).into("User")
 
-        console.log(`O produto ${user} foi inserido com sucesso!`)
+        console.log(`O Usuário ${name} foi inserido com sucesso!`)
     } catch(error) {
 
         console.error("\x1b[31m",error.message);
     }
 }
-
-//createUser("gab","Gabi","gab_socão","gabi@labenu.com" )
+//createUser("Iv4","Ivana","chica","ivana@labenu.com" )
 const createUserRaw = async(id:string, name:string, nickname:string,email:string):Promise<void> => {
     
     try {
@@ -118,6 +133,8 @@ const createUserRaw = async(id:string, name:string, nickname:string,email:string
         throw new Error(err.message);
     }
 }
+//createUserRaw("vi3", "Vivi", "vivinda", "vivi@labenu.com")
+//createUserRaw("vi4", "Viviane", "vivi", "vivanei@labenu.com")
 const getUserById = async (id: string): Promise<any> => {
 
     try {
@@ -132,6 +149,27 @@ const getUserById = async (id: string): Promise<any> => {
     } catch(err) {
         
         console.error("\x1b[31m","Erro ao encontrar usuário")
+    }
+}
+const getUserByIdQuery = async (id: string): Promise<any> => {
+
+    try {
+
+        const user = await connection.raw (
+            `
+             SELECT name, nickname FROM User
+             WHERE id = "${id}"
+            
+            `
+          )
+
+          var retorno = []
+          retorno.push(user)
+          return user[0][0]
+
+    } catch(err) {
+        
+        throw new Error(err.message);
     }
 }
 //console.log(getUserById("gab"))
@@ -156,7 +194,23 @@ const editInfoUser = async(id:string, name:string, nickname:string):Promise<any>
 }
 
 //console.log(editInfoUser("gab","Gabi","Gabi_garrafinha"))
+const deleteUserById = async(id:string) : Promise<void> => {
+    try {
 
+      await connection.raw (
+       `
+        DELETE FROM User
+        WHERE id = "${id}"
+       `
+      )
+      console.log("Deletado")
+    } catch(err) {
+
+        console.log("\x1b[31m","Erro ao deletar usuário")
+    }
+} 
+//deleteUserById("vi3")
+ //***************************FUNÇÕES DE TAREFAS**************************************** *//
 const createTask = async(id:string, title:string, description:string, limit_date:Date, creator_user_id:string ):Promise<any> => {
     try {
 
@@ -221,11 +275,20 @@ const getTaskByIdQuery = async(id:string) : Promise<any> => {
         console.error("\x1b[31m","Erro ao encontrar usuário")
     }
 }
-  //******************************************************************* *//
+const deleteTaskById = async(taskId:string) => {
+
+    await connection
+     .delete("*")
+     .from("TodoList")
+     .where({id:taskId})
+}
+//deleteTaskById("1592065410044")
+  //***************************EXPRESS**************************************** *//
 
 const app = express()
 app.use(express.json())
 
+//***************************ENDPOINTS USER**************************************** *//
 const createEndPointUser = async(req:Request, res:Response):Promise<any>=> {
     try {
         const user = {
@@ -256,9 +319,9 @@ const getUserByIdEndPoint = async(req:Request, res:Response):Promise<any> => {
 
         res.status(200).send(result);
 
-    }catch(err){
+    } catch(err) {
 
-        res.status(400).send({error: err.message});
+        res.status(400).send({error: err.message || err.mysqlmessage});
     }
 
 }
@@ -277,7 +340,7 @@ const putUserEndPoint = async(req:Request, res:Response): Promise<any> => {
 
     } catch(err) {
 
-        res.status(400).send({error: err.message});
+        res.status(400).send({error: err.message || err.mysqlMessage});
 
     }
 }
@@ -291,6 +354,60 @@ app.get("/", (req:Request, res:Response) => {
      .then(data => res.send(data))
      .catch(err => res.send(err.mysqlMessage || err.message ))
 })
+app.delete("/user", async(req:Request, res:Response) => {
+    
+    try {
+
+      const id = req.body.id
+      await connection.raw (`
+
+        DELETE FROM User
+        WHERE id = "${id}"
+
+        `)
+        res.status(200).send({message: "Produto apagado com sucesso"});
+    } catch(err) {
+
+        res.status(400).send({error: err.message || err.mysqlMessage});
+    }
+})
+app.delete("/user/:id", async(req:Request, res:Response) => {
+
+    try {
+
+      const id = req.params.id
+      await connection.raw (`
+  
+       DELETE FROM User
+       WHERE id = "${id}"
+  
+       `)
+
+          res.status(200).send({message:"Usuário apagado com sucesso"});
+  
+      } catch(err) {
+  
+          res.status(400).send({error: err.message || err.mysqlMessage});
+      }
+  })
+  /*
+  app.get("/user?query=id", async(req:Request,res:Response) : Promise<void> => {
+
+    try {
+        const users = {
+            id: req.query.id
+           
+        }
+        await getUserByIdQuery(users.id)
+        res.status(200).send(users);
+        
+    } catch (err) {
+
+        res.status(400).send({error: err.message});
+
+    }
+    
+  }) */
 //*************************END POINTS DAS TAREFAS****************************************** *//
 const putTaskEndPoint = async(req:Request, res:Response) : Promise<any> => {
 
@@ -327,6 +444,23 @@ const getTaskEndPoint = async(req:Request, res:Response) : Promise<any> => {
 
 }
 app.get("/task/:id", getTaskEndPoint)
+
+const deleteTaskEndPoint = async(req:Request, res: Response) => {
+
+    try {
+
+        const taskId = req.params.taskId
+
+        await deleteTaskById(taskId)
+        res.status(200).send({message: "Tarefa deletada"})
+
+    } catch(error) {
+
+        res.status(400).send({error: error.message || error.mysqlMessage});
+    }
+}
+app.delete("/task/:id", deleteTaskById)
+
 //******************************************************************* *//
 const server = app.listen(process.env.PORT || 3000, () => {
   
