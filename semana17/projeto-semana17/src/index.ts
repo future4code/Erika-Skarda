@@ -163,8 +163,6 @@ const getUserByIdQuery = async (id: string): Promise<any> => {
             `
           )
 
-          var retorno = []
-          retorno.push(user)
           return user[0][0]
 
     } catch(err) {
@@ -317,7 +315,8 @@ const getUserByIdEndPoint = async(req:Request, res:Response):Promise<any> => {
         const id = req.params.id
         const result = await getUserById(id);
 
-        res.status(200).send(result);
+        
+        res.status(200).send({data: result});
 
     } catch(err) {
 
@@ -349,7 +348,6 @@ app.put("/user/edit/:id", putUserEndPoint)
 
 app.get("/", (req:Request, res:Response) => {
     connection
-     .select("*")
      .from("User")
      .then(data => res.send(data))
      .catch(err => res.send(err.mysqlMessage || err.message ))
@@ -390,24 +388,22 @@ app.delete("/user/:id", async(req:Request, res:Response) => {
           res.status(400).send({error: err.message || err.mysqlMessage});
       }
   })
-  /*
-  app.get("/user?query=id", async(req:Request,res:Response) : Promise<void> => {
+  
+  app.get("/users/:id", async(req:Request,res:Response) : Promise<void> => {
 
     try {
-        const users = {
-            id: req.query.id
-           
-        }
-        await getUserByIdQuery(users.id)
-        res.status(200).send(users);
+        const id = req.params.id
+        const result = await getUserByIdQuery(id);
+
         
-    } catch (err) {
+        res.status(200).send({"users":[result]});
 
-        res.status(400).send({error: err.message});
+    } catch(err) {
 
+        res.status(400).send({error: err.message || err.mysqlmessage});
     }
     
-  }) */
+  }) 
 //*************************END POINTS DAS TAREFAS****************************************** *//
 const putTaskEndPoint = async(req:Request, res:Response) : Promise<any> => {
 
