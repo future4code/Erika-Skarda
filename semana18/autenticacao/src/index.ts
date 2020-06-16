@@ -5,32 +5,27 @@ import { Request, Response } from "express";
 import { AddressInfo } from "net";
 import { v4 } from "uuid";
 import {IdGenerator} from "./service/IdGenerator"
+import { Authenticator } from "./service/Authenticator";
 
 dotenv.config();
 
-const connection = knex({
-  client: "mysql",
-  connection: {
-    host: process.env.DB_HOST,
-    port: Number(process.env.DB_PORT) | 3306,
-    user: process.env.DB_USER,
-    password: process.env.DB_PASSWORD,
-    database: process.env.DB_DATABASE,
-  },
-})
-
 //******************************************************************************//
-
+/*
 const idGenerator = new IdGenerator();
 const id = idGenerator.generate()
-console.log(id)
+console.log("id gereado: " , id)
 
+const authenticator = new Authenticator()
+const token = authenticator.generateToken(id)
+
+console.log("token: ", token)
+
+const data = authenticator.verify(token)
+console.log(data)
+*/
 //******************************************************************************//
-
-
+/*
 const createUser = async(): Promise<void> => {
-
- 
 
     await connection.raw (
      `
@@ -43,14 +38,30 @@ const createUser = async(): Promise<void> => {
     )}
  
     createUser()
-    
 
-
-
+*/
 //******************************************************************************//
+
 const app = express();
 
 app.use(express.json());
+
+app.post("/signup", async(req:Request, res:Response) => {
+
+  try {
+
+    const userData = {
+      email: req.body.email,
+      password: req.body.password
+    }
+    const idGenerator = new IdGenerator();
+    const id = idGenerator.generate()
+    res.status(200).send({token:""})
+
+  } catch(err) {
+    res.status(400).send({message:err.message})
+  }
+})
 
 const server = app.listen(process.env.PORT || 3003, () => {
   if (server) {
