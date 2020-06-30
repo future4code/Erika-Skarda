@@ -13,9 +13,12 @@ const app = express();
 
 app.use(express.json());
 
+
 app.post("/signup", async (req: Request, res: Response) => {
 
   try {
+
+    
     // Item b. Validação do email
     if (!req.body.email || req.body.email.indexOf("@") === -1) {
       throw new Error("Invalid email");

@@ -10,7 +10,7 @@ const connection = knex({
   client: "mysql",
   connection: {
     host: process.env.DB_HOST,
-    port: Number(process.env.DB_PORT || "3306"),
+    port: Number(process.env.DB_PORT) | 3306,
     user: process.env.DB_USER,
     password: process.env.DB_PASSWORD,
     database: process.env.DB_DATABASE,
@@ -141,12 +141,81 @@ const avgSalaryGender = async(gender:string): Promise<any> => {
 }
 
 //avgSalaryGender("female")
+try {
+  const createProductsTable = async (): Promise<void> => {
+      await connection.raw(
+          `
+      CREATE TABLE Product
+      (
+      id VARCHAR(255) PRIMARY KEY,
+      name VARCHAR(255) NOT NULL UNIQUE,
+      price FLOAT NOT NULL
+  )`)
+  
+  }
+  //createProductsTable()
+} catch (error) {
+  console.error(error.message);
+}
+  
+try{
+  const createProducts = async(id:string, name: string, price:number): Promise<any> => {
+    await connection.raw (
+      `
+      INSERT INTO Product
+        VALUES(
+         "${id}",
+         "${name}",
+         ${price}
 
-const app = express();
+        )`   
+    )
 
+  }
+  //createProducts("abc","caneta",10)
+} catch(error) {
+  console.error("\x1b[31m","Deu Erro!")
+
+}
+
+const createProduct = async (id: string, name: string, price: number): Promise<void> => {
+  try {
+      await connection.raw(
+          `
+              INSERT INTO Product
+              VALUES ("${id}", "${name}", ${price})
+              `)
+              
+  } catch (err) {
+      throw new Error(err.message);
+  }
+}
+
+const createProductEndpoint = async (req: Request, res: Response) => {
+  try {
+      const product = {
+          id: req.body.id,
+          name: req.body.name,
+          price: req.body.price
+      }
+
+      await createProduct(product.id, product.name, product.price);
+
+      res.status(200).send({ message: "Produto criado com sucesso" });
+
+  } catch (err) {
+      res.status(400).send({ error: err.message });
+  }
+
+}
+
+const app = express()
 app.use(express.json());
 
+app.post("/product", createProductEndpoint);
+
 const server = app.listen(process.env.PORT || 3000, () => {
+  
   if (server) {
     const address = server.address() as AddressInfo;
     console.log(`Server is running in http://localhost:${address.port}`);

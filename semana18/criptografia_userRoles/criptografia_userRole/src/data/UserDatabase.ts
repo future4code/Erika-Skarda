@@ -5,13 +5,13 @@ export class UserDatabase extends BaseDatabase {
   
   private static TABLE_NAME = "Users";
 
-  public async createUser(
+  public async createUser(  
     id: string,
     email: string,
     password: string,
     role:string
   ): Promise<void> {
-    await this.g
+    await this.getConnection()
       .insert({
         id,
         email,
