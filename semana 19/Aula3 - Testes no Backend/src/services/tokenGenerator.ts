@@ -1,32 +1,71 @@
 import * as jwt from "jsonwebtoken";
-import dotenv from "dotenv";
-dotenv.config();
 
-export class TokenGenerator {
-  private static expiresIn: number = 1200;
+export class Authenticator {
 
-  public generate = (input: AuthenticationData): string => {
-    const newToken = jwt.sign(
+  private static EXPIRES_IN = "1min";
+  public generateToken(input: AuthenticationData): string {
+    const token = jwt.sign(
       {
         id: input.id,
-        role: input.role,
+        role: input.role
       },
       process.env.JWT_KEY as string,
       {
-        expiresIn: TokenGenerator.expiresIn,
+        expiresIn: Authenticator.EXPIRES_IN,
       }
     );
-    return newToken;
-  };
+    return token;
+  }
 
-  public verify(token: string) {
+  public getData(token: string): AuthenticationData {
     const payload = jwt.verify(token, process.env.JWT_KEY as string) as any;
-    const result = { id: payload.id, role: payload.role };
+    const result = {
+      id: payload.id,
+      role: payload.role
+    };
     return result;
   }
 }
 
-export interface AuthenticationData {
-  id: string;
-  role: string;
+interface AuthenticationData {
+  id: string,
+  role: string
 }
+/*export class Authenticator {
+  //private static EXPIRES_IN = "1y";
+  public generateToken(input: AuthenticationData,
+  expiresIn: string = process.env.ACESS_TOKEN_EXPIRES_IN!): string {
+    
+    const token = jwt.sign(
+      {
+        id: input.id,
+        role: input.role,
+        device: input.device
+      },
+      process.env.JWT_KEY as string,
+      {
+        //expiresIn: Authenticator.EXPIRES_IN,
+        expiresIn,
+      }
+    );
+    return token;
+  }
+
+  public getData(token: string): AuthenticationData {
+    const payload = jwt.verify(token, process.env.JWT_KEY as string) as any;
+    const result = {
+      
+      id: payload.id,
+      role:payload.role,
+      device: payload.device
+      
+    };
+    return result;
+  }
+}
+
+interface AuthenticationData {
+  id: string;
+  role?:string;
+  device?:string
+}*/
