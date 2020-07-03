@@ -12,8 +12,8 @@ export class UserDatabase extends BaseDatabase  {
       new User(
         UserModel.id,
         UserModel.name,
-        UserModel.password,
         UserModel.email,
+        UserModel.password,
         UserModel.role
       )
     );
@@ -21,7 +21,7 @@ export class UserDatabase extends BaseDatabase  {
 
   public async createUser(user: User): Promise<void> {
     await this.connection.raw(`
-      INSERT INTO ${this.userTableName} (id, name, music_genre, responsible)
+      INSERT INTO ${this.userTableName} (id, name, email, password, role)
       VALUES(
         '${user.getId()}',
         '${user.getName()}',
@@ -30,6 +30,15 @@ export class UserDatabase extends BaseDatabase  {
         '${user.getRole()}'
       )
     `);
+  }
+  public async getUserByEmail(email: string): Promise<User | undefined> {
+    const result = await this.connection.raw(
+      `
+      SELECT * FROM ${this.userTableName}
+      WHERE email = "${email}"
+      `
+    )
+    return this.User(result[0][0]);
   }
 
   public async getUserById(id: string): Promise<User | undefined> {
@@ -41,12 +50,12 @@ export class UserDatabase extends BaseDatabase  {
     return this.User(result[0][0]);
   }
 
-  public async getUserByName(name: string): Promise<User | undefined> {
+ /* public async getUserByName(name: string): Promise<User | undefined> {
     const result = await this.connection.raw(`
       SELECT * FROM ${this.userTableName}
       WHERE name LIKE '%${name}%'
     `);
 
     return this.User(result[0][0]);
-  }
+  }*/
 }

@@ -1,33 +1,57 @@
 import { BaseDatabase } from "./baseDatabase";
-import { BandGateway } from "../business/gateways/band";
-import { Band } from "../business/entities/band";
+import { Band } from "../model/band"
 
-export class BandDatabase extends BaseDatabase implements BandGateway {
-  private bandTableName: string = "BANDAS";
+export class BandDatabase extends BaseDatabase {
 
-  public fromDB(dbModel?: any): Band | undefined {
+  private bandTable: string = "BANDAS";
+
+  public Band(BandDB?: any): Band | undefined {
     return (
-      dbModel &&
-      new Band(
-        dbModel.id,
-        dbModel.name,
-        dbModel.music_genre,
-        dbModel.responsible
+      BandDB && new Band (
+        BandDB.id,
+        BandDB.name,
+        BandDB.music_genre,
+        BandDB.responsible_id
       )
     );
   }
 
-  public async createBand(band: Band): Promise<void> {
-    await this.connection.raw(`
-      INSERT INTO ${this.bandTableName} (id, name, music_genre, responsible)
-      VALUES(
-        '${band.getId()}',
-        '${band.getName()}',
-        '${band.getMusicGenre()}',
-        '${band.getResponsible()}'
-      )
-    `);
+  public async createBand(newBand: Band): Promise<void> {
+    await this.connection.raw(
+      `
+        INSERT 
+        INTO ${this.bandTable} (id, name, music_genre, responsible_id)
+        VALUES (
+            "${newBand.getId()}",
+            "${newBand.getName()}",
+            "${newBand.getMusic_genre()}",
+            "${newBand.getResponsible()}"
+
+        )`
+    );
   }
+
+  public async getBandByName(bandName:string) : Promise<Band |undefined> {
+    const bandData = await this.connection.raw (`
+
+      SELECT *
+      FROM ${this.bandTable} as b
+      
+      WHERE name LIKE "%${bandName}%"
+      
+      
+    `
+    )
+    return this.Band(bandData[0][0])
+  }
+
+}
+
+
+
+
+
+/*
 
   public async getBandById(id: string): Promise<Band | undefined> {
     const result = await this.connection.raw(`
@@ -46,4 +70,4 @@ export class BandDatabase extends BaseDatabase implements BandGateway {
 
     return this.fromDB(result[0][0]);
   }
-}
+} */

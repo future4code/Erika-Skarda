@@ -16,6 +16,7 @@ export class UserController {
     async signup(req: Request, res: Response) {
         try {
           const result = await UserController.UserBusiness.signup(
+            
             req.body.name,
             req.body.email,
             req.body.password,
@@ -27,5 +28,21 @@ export class UserController {
         }
       }
 
+    async login (req:Request, res:Response) {
+      try {
+        const result = await UserController.UserBusiness.login (
+
+          req.body.email,
+          req.body.password
+
+        );
+        res.status(200).send({message: result})
+      
+      } catch (err) {
+
+       res.status(err.errorCode || 400).send({ message: err.message });
+      
+      }
+    }
 
 }
