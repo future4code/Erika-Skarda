@@ -1,0 +1,57 @@
+1 b) Qual o retorno da função se ela receber um objeto vazio de entrada?
+Response:
+{
+  "statusCode": 400,
+  "body": "{\"message\":\"Missing input\"}"
+}
+
+c) Qual o retorno da função se ela receber este objeto como entrada:
+Response:
+{
+  "statusCode": 400,
+  "body": "{\"message\":\"Missing input\"}"
+}
+
+d) Qual o retorno da função se ela receber este objeto como entrada:
+Response:
+{
+  "statusCode": 400,
+  "body": "{\"message\":\"Missing email\"}"
+}
+
+e) Qual o retorno da função se ela receber este objeto como entrada:
+Response:
+{
+  "statusCode": 400,
+  "body": "{\"message\":\"Invalid password\"}"
+}
+
+f) Qual o retorno da função se ela receber este objeto como entrada:
+
+Response:
+{
+  "statusCode": 200,
+  "body": "{\"message\":\"User is correct\"}"
+}
+
+g) Onde devemos alterar para que a função retorne o status `422` caso o email seja inválido?
+
+else if(user.email.indexOf("@") === -1 || (user.email.indexOf(".com") === -1)) {
+    return {
+      statusCode: 422,
+      body: JSON.stringify({ message: "Invalid email" })
+            
+    }
+ };
+
+h) Qual deve ser o objeto de entrada para que a função retorne o status 200?
+{
+  "user": {
+		"info": {
+			"name": "Gabi_Vacilona",
+			"email": "gabilabenu.com.br",
+			"password": "vacilona"
+		}
+  }
+}
+
