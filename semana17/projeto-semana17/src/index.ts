@@ -4,6 +4,9 @@ import express from "express";
 import { AddressInfo } from "net";
 import { Request, Response } from "express";
 
+import moment from 'moment'
+
+
 dotenv.config();
 
 const connection = knex({
@@ -86,8 +89,6 @@ const createTableTaskENUM = async (): Promise<any> => {
 
   };
   const createTableTaskRelation = async (): Promise<any> => {
-
-    
 
       await connection.raw(`
         CREATE TABLE TodoListRelation (
@@ -375,8 +376,9 @@ app.delete("/user/:id", async(req:Request, res:Response) => {
 
       const id = req.params.id
       await connection.raw (`
-  
+
        DELETE FROM User
+
        WHERE id = "${id}"
   
        `)
@@ -389,10 +391,12 @@ app.delete("/user/:id", async(req:Request, res:Response) => {
       }
   })
   
-  app.get("/users/:id", async(req:Request,res:Response) : Promise<void> => {
+
+  app.get("/users", async(req:Request,res:Response) : Promise<void> => {
 
     try {
-        const id = req.params.id
+        const id = req.query.id as string 
+
         const result = await getUserByIdQuery(id);
 
         
@@ -405,22 +409,36 @@ app.delete("/user/:id", async(req:Request, res:Response) => {
     
   }) 
 //*************************END POINTS DAS TAREFAS****************************************** *//
+
+//limit_date: moment(req.body.limit_date, "DD/MM/YYY").format("YYYY/MM/DD").toString()
+
 const putTaskEndPoint = async(req:Request, res:Response) : Promise<any> => {
 
     try {
 
       const task = {
         id : (Date.now()).toString(),
-      }
-        const {title, description, limit_date, creator_user_id} = req.body
+
         
-        await createTaskQuery(task.id, title, description, limit_date, creator_user_id)
-        res.status(200).send({message: `Tarefa ${title} criada com sucesso!!!`})
+      }
+        const {title, description,limit_date,  creator_user_id} = req.body
+
+        if(!title || !description || !limit_date || !creator_user_id) {
+        
+        
+            res.status(400).send({message: "Preencha todas as lacunas"});
+
+        } else {
+            await createTaskQuery(task.id, title, description, limit_date, creator_user_id)
+            res.status(200).send({message: `Tarefa ${title} criada com sucesso!!!`})
+        }
+
 
     } catch(err) {
 
         res.status(400).send({error: err.message || err.mysqlMessage});
     }
+
 }
 app.put("/task", putTaskEndPoint)
 
@@ -458,6 +476,7 @@ const deleteTaskEndPoint = async(req:Request, res: Response) => {
 app.delete("/task/:id", deleteTaskById)
 
 //******************************************************************* *//
+
 const server = app.listen(process.env.PORT || 3000, () => {
   
     if (server) {
