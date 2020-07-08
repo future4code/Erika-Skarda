@@ -1,0 +1,17 @@
+Tarefa 2 
+1. Sem rodar esse código, dê três exemplos de entrada e saída da função `verifyExistence`.
+
+--> Undefined, null ou valor do input
+
+2. Por que precisamos utilizar o comando `JSON.parse(event.body)`?
+
+--> Para transformar para objeto'
+
+3. Explique em que situação essa lambda retorna um código de `200` e
+   qual o valor do `body` nesse caso
+
+--> Quando tem body e params
+
+4. Explique em que situação essa lambda retorna um código de erro 400 com a mensagem Missing Input
+
+-- > Quando falta ou body ou query params

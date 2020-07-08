@@ -1,0 +1,31 @@
+{
+  "name": "aula3-serveless",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "serveless",
+    "frame"
+  ],
+  "author": "Erika Skarda",
+  "license": "ISC",
+  "dependencies": {
+    "@types/express": "^4.17.0",
+    "D": "^1.0.0",
+    "cors": "^2.8.5",
+    "express": "^4.17.0",
+    "serverless-webpack": "^5.3.2",
+    "webpack-node-externals": "^1.7.2"
+  },
+  "devDependencies": {
+    "@types/cors": "^2.8.6",
+    "serverless-dotenv-plugin": "^2.4.2",
+    "serverless-http": "^2.5.0",
+    "serverless-offline": "^6.4.0",
+    "ts-loader": "^7.0.5",
+    "webpack": "^4.43.0"
+  }
+}
