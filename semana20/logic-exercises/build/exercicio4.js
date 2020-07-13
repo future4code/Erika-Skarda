@@ -27,5 +27,4 @@ function exercicio_4(palavra) {
     }
 }
 console.log(exercicio_4("9899"));
-9999;
 //# sourceMappingURL=exercicio4.js.map
