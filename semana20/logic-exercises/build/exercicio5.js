@@ -15,7 +15,7 @@ function fancyTimeFormat(segundos) {
     const secs = ~~segundos % 60;
     let ret = "";
     if (hrs > 0) {
-        ret += "" + hrs + "h " + (mins < 10 ? "" : "");
+        ret += "" + hrs + "h " + (mins < 10 ? "0" : "");
     }
     ret += "" + mins + "m " + (secs < 10 ? "0" : "");
     ret += "" + secs + "s ";
