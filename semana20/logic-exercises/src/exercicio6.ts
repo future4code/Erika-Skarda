@@ -6,7 +6,3 @@ function reverteString(stringQualquer:string) : any {
 
 console.log(reverteString("Erika"))
 
-const reversee = (palavra:string): any => {
-
-    retur
-}
