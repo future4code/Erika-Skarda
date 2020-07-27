@@ -10,5 +10,19 @@ function fatorial(numero) {
     }
     console.log(`O Fatorial de ${numero} é ${fatorial}`);
 }
-fatorial(3);
+function x(numero) {
+    const valor = (Math.trunc(numero));
+    const valorPo = Number.isInteger(numero);
+    console.log(valorPo);
+    if (valor !== numero && (numero >= 0)) {
+        return console.log(numero, "não é natural");
+    }
+    else {
+        return console.log(numero, "é natural");
+    }
+}
+const qtd = (numero) => {
+    const numS = numero.toString();
+    return numS.length;
+};
 //# sourceMappingURL=exercise7.js.map
