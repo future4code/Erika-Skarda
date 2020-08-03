@@ -192,3 +192,24 @@ const compressionString = (input: string): any => {
 };
 
 console.log(compressionString("banana"))
+
+// let result = []
+// for(let i=0 ;i < 200;i++  {
+//   for(let j=0; j<i; j++) {
+//     if(i%2 === 0) {
+//       result.push(i/2)
+//     } else {
+//       result.push(i)
+//     }
+//   }
+// }
+// let result2 = []
+// for(let i=0 ;i < 200;i++  {
+//   for(let j=0; j<i; j*=) {
+//     if(i%2 === 0) {
+//       result2.push(i/2)
+//     } else {
+//       result2.push(i)
+//     }
+//   }
+// }

@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "tsc && node build/exercicio1_sem23.js"
+    "start": "tsc && node build/exercicio_03_08.js"
   },
   "keywords": [
     "\"Cloud\"",
