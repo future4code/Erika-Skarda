@@ -1,21 +1,21 @@
 function somaTarget(array, target) {
-    let numero1 = "";
-    let numero2 = "";
+    let numero1 = 0;
+    let numero2 = 0;
     let soma = 0;
-    const resposta = {
-        resposta: soma
-    };
-    for (let i = 0; i <= (soma + target || array.length); i++) {
-        let j = i + 1;
-        soma = array[i] + array[j];
-        if (soma == target) {
-            return (array[i], "e", array[j]);
-        }
-        else {
-            soma = 0;
+    for (let i = 0; i <= array.length; i++) {
+        numero1 = array[i];
+        for (let j = 1; j <= array.length; j++) {
+            numero2 = array[j];
+            soma = numero1 + numero2;
+            if (soma == target) {
+                return true;
+            }
+            else {
+                return false;
+            }
         }
     }
-    return resposta;
+    return soma;
 }
 console.log(somaTarget([0, 1, 2, 4, 3], 3));
 //# sourceMappingURL=exercicio12_08.js.map

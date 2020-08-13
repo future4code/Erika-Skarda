@@ -1,34 +1,35 @@
 function somaTarget(array:number[], target:number):any {
-    let numero1= "";
-    let numero2="";
+
+    let numero1= 0;
+    let numero2=0;
     let soma = 0;
     
-    const resposta = {
+    
+    for(let i = 0; i <= array.length; i++) {
+        numero1 = array[i]
+     for(let j = 1; j <= array.length; j++) {
+         numero2 = array[j]
 
-        resposta:soma
-    }
-    for(let i=0; i <= (soma + target || array.length); i++) {
+         soma = numero1 + numero2
 
-        let j = i + 1;
+         if(soma === target) {
 
-            soma = array[i] + array[j]
+            return array[i]
+         } else  {
 
-            if(soma == target) {
+            return false
+         }
 
-                return (array[i],"e", array[j])
 
-            } else {
-
-                soma = 0
-            }
-
+        
+     }
 
 
         }
         
     
-    return resposta
+    return soma
  
 }
-// console.log(somaTarget([0, 1, 2 ,4, 3], 3))
+ console.log(somaTarget([0, 1, 2 ,4, 3], 3))
 
